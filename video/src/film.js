@@ -82,7 +82,7 @@ function viewportCam(f) { // the camera behaves like a browser viewport at 1440 
 function heroCam(f) {
   if (!V) { const p = E.inOutCubic(prog(f, 0, 276)), q = E.inOutCubic(prog(f, 196, 290)); const sc = lerp(1.37, 1.425, p) * (1 + 0.07 * q); return cam(lerp(716, 742, p) + 18 * q, (H / 2 - 64) / sc + 10 * q, sc); }
   const pan = E.inOutCubic(prog(f, 214, 268));
-  return cam(lerp(413, 1080, pan), (H / 2 - 230) / 1.55 + drift(f, 4, 300), (1.55 + 0.02 * prog(f, 0, 276)) * (1 + 0.06 * E.inOutCubic(prog(f, 240, 290))));
+  return cam(lerp(413, 1080, pan) + 14 * prog(f, 150, 214), (H / 2 - 230) / 1.55 + drift(f, 4, 300) - 10 * prog(f, 150, 214), (1.55 + 0.02 * prog(f, 0, 276)) * (1 + 0.06 * E.inOutCubic(prog(f, 240, 290))));
 }
 function itemsCam(f) {
   const c1 = G.card.xs[0] + G.card.w / 2;
@@ -459,6 +459,7 @@ window.renderFrame = function (f) {
     const bw = (V ? 600 : 760) * E.outExpo(prog(f, 354, 360));
     pUnder.style.left = px(W / 2 - bw / 2); pUnder.style.width = px(bw);
     plate.style.opacity = 1 - E.inQuad(prog(f, 355, 360));
+    plate.style.transform = `scale(${1 + 0.05 * prog(f, 284, 360)}) translateY(${-10 * prog(f, 284, 360)}px)`;
   }
 
   // grid label
@@ -487,7 +488,7 @@ window.renderFrame = function (f) {
   // end
   vis(endL, f >= 1058 ? 1 : 0); vis(endBack, f >= 1058 ? 1 : 0);
   if (f >= 1058) {
-    endBg.style.transform = `scale(${1.06 + 0.12 * prog(f, 1058, 1200)}) translate(${-30 * prog(f, 1058, 1200)}px, ${-16 * prog(f, 1058, 1200)}px)`;
+    endBg.style.transform = `scale(${1.06 + (V ? 0.2 : 0.12) * prog(f, 1058, 1200)}) translate(${-30 * prog(f, 1058, 1200)}px, ${-16 * prog(f, 1058, 1200)}px)`;
     endBg.style.filter = `brightness(${1 + drift(f, 0.03, 90)})`;
 
     const np = E.outQuint(prog(f, 1070, 1096));
@@ -496,7 +497,7 @@ window.renderFrame = function (f) {
     endLogo.style.opacity = E.outCubic(prog(f, 1084, 1100));
     endLogo.style.transform = `translateY(${(1 - E.outCubic(prog(f, 1084, 1104))) * 16}px)`;
     endCred.style.opacity = E.outCubic(prog(f, 1100, 1116));
-    endL.style.transform = `scale(${1 + 0.035 * E.outCubic(prog(f, 1080, 1200))})`;
+    endL.style.transform = `scale(${1 + 0.05 * prog(f, 1076, 1200)}) translateY(${-8 * prog(f, 1076, 1200)}px)`;
     endL.style.transformOrigin = '50% 50%';
   }
 
