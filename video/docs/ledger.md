@@ -55,3 +55,27 @@ Measured, 16:9: frozen 0.92 s, longest still 0.20 s, no still run over 0.5 s, �
   - Contrast: the `addClass` line is white throughout (large-text 4.4:1); crossing is marked by weight and underline.
   - 9:16: hero recomposed (headline centred, pan to the portrait at 2.5–3.4 s); macro card moved inside the UI-safe area; scroll zooms 1.5 → 2.1 into the card.
   - Declined: logo in the 9:16 header-snap crop. The crop has to hold the Connect Wallet pill, because the carrier lands there; the logo returns on the end card.
+
+## Round 3: `out/r3_*.mp4`
+Measured: 16:9 frozen **0.27 s** (pass); 9:16 frozen 0.77 s, fixed by starting the pan 16 f earlier. −13.8 LUFS, TP −1.2.
+- Sound-off (r3): landscape **4/5**, vertical **3/5**. Fixes: a `scrollTop()` label above the counter; `gigaland-clone` in the editor tab enlarged and bold.
+- Fact check (r3): **fail** on 3 points, all fixed:
+  - The avatar sits inside the card wrapper, so hovering it also triggers the art zoom. The zoom now starts with the ring at f516.
+  - "1 HTML file / 6 CSS files" was not literally true for the whole repo, because the vendor font folders contain demo HTML and CSS. It now reads **"1 page" / "6 stylesheets"**, with an `assets/css/` header; F9 and F10 rewritten.
+  - F21's claim text corrected to 130–138 with normalised indentation. F26 added for the avatar hover.
+- Frame critic + director (r3): **one more pass**, described as "close to final". Fixes:
+  - **Blocker:** the carrier pill blurred at the snap and smeared across the nav. It now lands crisp (motion blur off 357–368, label in by 358). It then leaves on a fast 42 f arc that dips below the header, clear of the nav text, and lands on the timer at f482.
+  - **Blocker:** the kicker collided with the headline plate. The kicker wipe now runs after the drop (152–182).
+  - Column highlight fill lowered from 42 % to 22 %, so it reads as a grid band rather than an empty card.
+  - Collections reframed so "Hot Collections" stays inside the frame.
+  - Dive starts 6 f earlier.
+  - Wide hold push doubled.
+  - Cursor now parks by the glyph.
+  - Plate code bold for contrast; CTA white/bold and credit at 92 % white.
+  - type_a mask 8 f earlier.
+  - 9:16:
+    - Pullback stops at two columns (1.7×).
+    - Hero at 1.45× with a slimmer headline box, keeping it out of the right UI zone.
+    - Macro dropped 40 px; collections heading hidden until its scene.
+    - Code line spacing opened up to fill the frame.
+    - Type card moved down 30 px.

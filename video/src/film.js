@@ -82,8 +82,8 @@ function viewportCam(f) { // the camera behaves like a browser viewport at 1440 
 }
 function heroCam(f) {
   if (!V) { const p = E.inOutCubic(prog(f, 0, 276)); const sc = lerp(1.37, 1.43, p); return cam(lerp(712, 720, p) + drift(f, 3, 240), (H / 2 - 64) / sc + 8 * p + drift(f, 2, 180, 1), sc); }
-  const pan = E.inOutCubic(prog(f, 150, 204)), sc = 1.55 + 0.03 * prog(f, 0, 276);
-  return cam(lerp(413, 1080, pan) + drift(f, 4, 260), 280 + (H / 2 - 760) / sc + drift(f, 4, 300) - 12 * prog(f, 204, 276), sc);
+  const pan = E.inOutCubic(prog(f, 150, 204)), sc = 1.45 + 0.03 * prog(f, 0, 276);
+  return cam(lerp(430, 1080, pan) + drift(f, 4, 260), 280 + (H / 2 - 760) / sc + drift(f, 4, 300) - 12 * prog(f, 204, 276), sc);
 }
 function itemsCam(f) {
   const c1 = G.card.xs[0] + G.card.w / 2;
@@ -92,17 +92,17 @@ function itemsCam(f) {
     const wide = cam(720, 1474, 1.37);
     let c = mixCam(a, b, E.inOutCubic(prog(f, 548, 570)));
     c = mixCam(c, wide, E.inOutCubic(prog(f, 580, 620)));
-    c.s *= 1 + 0.03 * prog(f, 480, 600) + 0.02 * prog(f, 620, 690);
+    c.s *= 1 + 0.03 * prog(f, 480, 600) + 0.045 * prog(f, 620, 690);
     return c;
   }
   const sa = 2.6 + 0.1 * prog(f, 480, 600);
-  const a = cam(c1, G.card.y + G.card.h / 2 + 80 / sa, sa);
-  const wide = cam(lerp(420, 1020, E.inOutCubic(prog(f, 634, 690))), 1480, 1.32);
+  const a = cam(c1, G.card.y + G.card.h / 2 + 40 / sa, sa);
+  const wide = cam(lerp(389, 720, E.inOutCubic(prog(f, 634, 690))), 1505, 1.7);
   return mixCam(a, wide, E.inOutCubic(prog(f, 580, 620)));
 }
 function collCam(f) {
   const p = prog(f, 700, 860);
-  return V ? cam(720 + drift(f, 6, 240) + 30 * p, 2030, 1.6 + 0.1 * p, -0.06) : cam(720 + drift(f, 5, 260) + 24 * p, 2036, 1.45 + 0.12 * p, -0.05);
+  return V ? cam(720 + drift(f, 6, 240) + 30 * p, 2030, 1.6 + 0.1 * p, -0.06) : cam(690 - 10 * p + drift(f, 5, 260), 2036, 1.42 + 0.08 * p, -0.05);
 }
 function guideCam(f) {
   const c = G.guide.xs[0] + G.guide.w / 2, cy = G.guide.y + G.guide.h / 2, p = prog(f, 870, 960);
@@ -111,8 +111,8 @@ function guideCam(f) {
 function camera(f) {
   if (f < 276) return heroCam(f);
   if (f < 360) return mixCam(heroCam(275), viewportCam(f), E.inOutCubic(prog(f, 276, 352)));
-  if (f < 456) return viewportCam(f);
-  if (f < 600) return mixCam(viewportCam(f), itemsCam(f), E.inOutQuint(prog(f, 456, 504)));
+  if (f < 450) return viewportCam(f);
+  if (f < 600) return mixCam(viewportCam(f), itemsCam(f), E.inOutQuint(prog(f, 450, 506)));
   if (f < 690) return itemsCam(f);
   if (f < 860) return mixCam(itemsCam(f), collCam(f), E.inOutQuint(prog(f, 676, 704)));
   return mixCam(collCam(f), guideCam(f), E.inOutQuint(prog(f, 856, 884)));
@@ -180,7 +180,7 @@ for (let k = 3; k >= 0; k--) { // card 0 on top for the deal
   el(c, 't14', { right: '20px', top: '385px', fontSize: '12px' }, '50');
   cards[k] = { c, artIn, heart, timer, avRing };
 }
-el(page, 'sec-title', { left: px(G.collTitle.x), top: px(G.collTitle.y) }, 'Hot Collections');
+const collTitle = el(page, 'sec-title', { left: px(G.collTitle.x), top: px(G.collTitle.y) }, 'Hot Collections');
 const guides = [];
 for (let k = 0; k <= 5; k++) guides.push(el(page, 'colguide', { left: px(G.col.x0 + k * G.col.dx), top: px(G.col.y), height: px(G.col.h) }));
 const TART = [[240, 420, 420, BG], [1020, 560, 260, VR], [1180, 120, 520, BG], [140, 900, 260, VR], [360, 640, 520, BG]];
@@ -226,7 +226,7 @@ const CODE = [
   [137, '    </span>'],
   [138, '    <span class="introduce__title-sub">'],
 ];
-const ED = V ? { fs: 32, lh: 58, x: 88, gut: 74 } : { fs: 54, lh: 90, x: 170, gut: 130 };
+const ED = V ? { fs: 32, lh: 80, x: 88, gut: 74 } : { fs: 54, lh: 90, x: 170, gut: 130 };
 const lineTop = i => H / 2 + (i - 4) * ED.lh - ED.lh / 2;
 const editor = el(stage, 'layer');
 const edBg = el(editor, 'layer', { background: 'rgba(33,36,40,0.9)' });
@@ -252,7 +252,7 @@ const flySans = el(stage, '', { position: 'absolute', left: 0, top: 0, fontSize:
 const plate = el(stage, 'layer');
 const P80 = V ? { code: 30, num: 360, gap: 300 } : { code: 36, num: 340, gap: 300 };
 const pLineA = el(plate, 'mask', { left: 0, width: '100%', top: px(H / 2 - P80.gap), height: px(P80.code * 1.6), textAlign: 'center' });
-const pLineAin = el(pLineA, 'mono', { fontSize: px(P80.code), lineHeight: px(P80.code * 1.6), color: '#fff' }, 'if($(window).scrollTop() &gt; 80) {');
+const pLineAin = el(pLineA, 'mono', { fontSize: px(P80.code), lineHeight: px(P80.code * 1.6), color: '#fff', fontWeight: 700 }, 'if($(window).scrollTop() &gt; 80) {');
 const pNum = el(plate, '', { position: 'absolute', left: 0, width: '100%', top: px(H / 2 - P80.num * 0.62), textAlign: 'center', fontSize: px(P80.num), fontWeight: 800, lineHeight: px(P80.num * 1.2), letterSpacing: '-8px', fontVariantNumeric: 'tabular-nums' }, '0');
 const pLineB = el(plate, 'mask', { left: 0, width: '100%', top: px(H / 2 + P80.gap - P80.code * 1.6), height: px(P80.code * 1.6 + 8), textAlign: 'center' });
 const pLineBin = el(pLineB, 'mono', { fontSize: px(P80.code), lineHeight: px(P80.code * 1.6), color: '#fff' }, '  $(".header").addClass("active");');
@@ -287,8 +287,8 @@ const endLogo = document.createElement('img'); endLogo.src = IMG + 'logo-light.p
 Object.assign(endLogo.style, { position: 'absolute', width: '334px', height: '72px', left: px(W / 2 - 167), top: px(EN.logoY - 36), imageRendering: 'auto' }); endL.appendChild(endLogo);
 const endNameM = el(endL, 'mask', { left: 0, width: '100%', top: px(EN.nameY), height: px(EN.name * 1.25), textAlign: 'center' });
 const endName = el(endNameM, '', { fontSize: px(EN.name), fontWeight: 800, lineHeight: px(EN.name * 1.25), letterSpacing: '-3px' }, 'gigaland-clone');
-const endCred = el(endL, '', { position: 'absolute', left: 0, width: '100%', top: px(EN.credY), textAlign: 'center', fontSize: px(V ? 28 : 26), color: 'rgba(255,255,255,.78)' }, '© Copyright 2021 - Gigaland by Designesia');
-const endCta = el(endL, '', { position: 'absolute', left: 0, width: '100%', textAlign: 'center', fontSize: px(V ? 30 : 28), fontWeight: 500, color: 'rgba(255,255,255,.85)' }, 'Read the source');
+const endCred = el(endL, '', { position: 'absolute', left: 0, width: '100%', top: px(EN.credY), textAlign: 'center', fontSize: px(V ? 28 : 26), color: 'rgba(255,255,255,.92)' }, '© Copyright 2021 - Gigaland by Designesia');
+const endCta = el(endL, '', { position: 'absolute', left: 0, width: '100%', textAlign: 'center', fontSize: px(V ? 34 : 32), fontWeight: 700, color: '#fff' }, 'Read the source');
 const URLR = V ? { w: 900, h: 92, fs: 34 } : { w: 900, h: 96, fs: 38 };
 
 // cursor on top
@@ -307,7 +307,7 @@ function mixS(a, b, t, arc = 0) {
   o.bg = mixColor(a.bg, b.bg, t); o.lab = t < 0.5 ? a.lab : b.lab; o.la = t < 0.5 ? a.la * (1 - t * 2) : b.la * (t * 2 - 1); o.lw = b.lw;
   return o;
 }
-const HEADBOX = { x: G.head.x - 14, y: G.head.y - 6, w: 610 + 28, h: 114 + 12 };
+const HEADBOX = V ? { x: G.head.x - 8, y: G.head.y - 4, w: 610 + 16, h: 114 + 8 } : { x: G.head.x - 14, y: G.head.y - 6, w: 610 + 28, h: 114 + 12 };
 function flight(f) { // lifted at frame 0, lands on the page headline at A.headline_land
   const tp = E.inOutCubic(prog(f, 0, A.headline_land));
   return { tp, arc: Math.sin(Math.PI * tp) * (V ? 120 : 90), lift: (V ? 14 : 18) * (1 - E.outCubic(prog(f, 0, 30))) };
@@ -317,7 +317,7 @@ const full = (bg = C.purple) => S(W / 2, H / 2, W, H, 0, { bg });
 // the 80 plate stops under the fixed header so the header's switch stays in view
 const hdrBottom = f => proj(0, sY(f) + 85, camera(f))[1];
 const plate80 = f => { const hb = hdrBottom(f) + 8; return S(W / 2, (hb + H) / 2, W, H - hb, 0, { bg: C.purple }); };
-const INSET = () => V ? S(W / 2, 900, W - 120, 1400, 30, { bg: C.purple }) : S(W / 2, H / 2, W - 160, H - 140, 28, { bg: C.purple });
+const INSET = () => V ? S(W / 2, 930, W - 120, 1360, 30, { bg: C.purple }) : S(W / 2, H / 2, W - 160, H - 140, 28, { bg: C.purple });
 const URLS = () => S(W / 2, EN.urlY + URLR.h / 2, URLR.w, URLR.h, URLR.h / 2, { bg: C.deep, bd: 2, lab: 'github.com/haudnn/gigaland-clone', lfs: URLR.fs, lw: 500, mono: true });
 
 function carrierState(f, c) {
@@ -340,14 +340,14 @@ function carrierState(f, c) {
   }
   if (f < 276) { const o = btn(f); const sq = spring(sec(f - BL), 22, 0.35); o.sx = 1 + 0.16 * (1 - sq); o.sy = 1 - 0.2 * (1 - sq); return o; }
   if (f < 352) { const p = E.outExpo(prog(f, 276, 300)); const o = mixS(btn(f), plate80(f), p); o.la = 1 - prog(f, 276, 282); o.lab = 'Explore'; return o; }
-  if (f < 430) {
+  if (f < 440) {
     const p = E.inExpo(prog(f, 354, 360));
     const o = f < 360 ? mixS(plate80(f), pill(f), p) : pill(f);
-    o.la = prog(f, 357, 362); o.lab = 'Connect Wallet';
+    o.la = prog(f, 355, 358); o.lab = 'Connect Wallet'; o.crisp = f >= 357;
     if (f >= 360) { const sq = spring(sec(f - 360), 24, 0.32); o.sx = 1 + 0.22 * (1 - sq); o.sy = 1 - 0.25 * (1 - sq); }
     return o;
   }
-  if (f < 690) { const p = E.inOutCubic(prog(f, 430, 494)); const o = mixS(pill(f), timer(f), p, V ? 140 : 120); if (f > 494) o.la = 1; return o; }
+  if (f < 690) { const p = E.inOutCubic(prog(f, 440, 482)); const o = mixS(pill(f), timer(f), p, V ? -260 : -240); if (f > 482) o.la = 1; return o; }
   if (f < 856) { const p = E.inOutQuint(prog(f, 668, 712)); const o = mixS(timer(f), column(f), p); o.la = 1 - prog(f, 668, 676); o.lab = '1d 14h 40m 25s'; o.colAlpha = p; return o; }
   if (f < 960) { const p = E.inOutQuint(prog(f, 852, 886)); const o = mixS(column(f), icon(f), p); o.icon = p > 0.85; o.colAlpha = 1 - p; return o; }
   if (f < 1060) { const p = E.outExpo(prog(f, 960, 984)); const o = mixS(icon(f), INSET(), p); o.icon = p < 0.4; return o; }
@@ -386,7 +386,7 @@ window.renderFrame = function (f) {
   const under = y => 1 - clamp((scroll + 85 + 24 - y) / 40);
   vis(headline, f >= A.button_land ? under(G.head.y + 40) : 0);
   kicker.style.opacity = under(G.kicker.y + 10); btnReal.style.opacity = f >= 360 ? under(G.btn.y + 10) : 0;
-  kicker.style.clipPath = `inset(0 ${100 - 100 * E.outCubic(prog(f, 70, 102))}% 0 0)`;
+  kicker.style.clipPath = `inset(0 ${100 - 100 * E.outCubic(prog(f, 152, 182))}% 0 0)`;
   // portrait: the marble window unfolds from its centre line, then the reveal keeps rising past the top edge (the head)
   const pf = f, PT = V ? { s0: 160, s1: 196, u0: 166, u1: 206, h0: 190, h1: 236 } : { s0: 150, s1: 190, u0: 156, u1: 196, h0: 184, h1: 236 };
   const u1 = E.outQuint(prog(pf, PT.u0, PT.u1)), u2 = E.outCubic(prog(pf, PT.h0, PT.h1));
@@ -427,6 +427,7 @@ window.renderFrame = function (f) {
   vis(gcards[0].icon, f < 856 ? 1 : 0);
   gcards.forEach((g, k) => { const p = E.outCubic(prog(f, 848 + 5 * k, 882 + 5 * k)); vis(g.g, f >= 848 || f < 680 ? (f < 680 ? 1 : p) : 0); g.g.style.transform = `translateY(${(1 - (f < 680 ? 1 : p)) * 60}px)`; });
   vis(guideTitle, f < 680 ? 1 : E.outCubic(prog(f, 846, 872)));
+  vis(collTitle, V && f >= 480 && f < 676 ? 0 : 1);
 
   /* overlays */
   // editor
@@ -468,7 +469,7 @@ window.renderFrame = function (f) {
     const crossed = scroll > 80;
     pNum.style.transform = `scale(${0.92 + 0.08 * E.outCubic(prog(f, 286, 310)) + 0.03 * Math.sin(Math.PI * prog(f, 344, 354)) + (crossed ? 0.06 * (1 - spring(sec(f - 354), 26, 0.35)) : 0)})`;
     pNum.style.opacity = E.outCubic(prog(f, 286, 296));
-    pLineBin.style.color = '#fff'; pLineBin.style.fontWeight = crossed ? 700 : 400;
+    pLineBin.style.color = '#fff'; pLineBin.style.fontWeight = 700;
     const uw = pLineBin.offsetWidth ? 0 : 0;
     const bw = (V ? 600 : 760) * E.outExpo(prog(f, 354, 360));
     pUnder.style.left = px(W / 2 - bw / 2); pUnder.style.width = px(bw);
@@ -492,7 +493,7 @@ window.renderFrame = function (f) {
   vis(typeL, tyOn ? 1 : 0);
   if (tyOn) {
     const out = E.inCubic(prog(f, 1048, 1060));
-    ty1.style.transform = `translateY(${(1 - E.outQuint(prog(f, A.type_a - 6, A.type_a + 18))) * 110 - out * 110}%)`;
+    ty1.style.transform = `translateY(${(1 - E.outQuint(prog(f, A.type_a - 14, A.type_a + 8))) * 110 - out * 110}%)`;
     ty2.style.transform = `translateY(${(1 - E.outQuint(prog(f, A.type_b - 12, A.type_b + 12))) * 110 - out * 110}%)`;
     cssHeadIn.style.transform = `translateY(${(1 - E.outQuint(prog(f, A.type_b, A.type_b + 14))) * 110 - E.inCubic(prog(f, 1044, 1054)) * 110}%)`;
     tabs.forEach((t, i) => { const t0 = i === 0 ? A.type_a + 6 : A.type_b + 4 + 4 * (i - 1); const o2 = E.inCubic(prog(f, 1044 + i, 1054 + i));
@@ -528,7 +529,7 @@ window.renderFrame = function (f) {
   carrier.style.width = px(Math.max(0, st.w)); carrier.style.height = px(Math.max(0, st.h));
   carrier.style.borderRadius = px(st.r);
   const colA = st.colAlpha || 0;
-  carrier.style.background = colA > 0 ? `rgba(64,63,131,${lerp(1, 0.42, colA)})` : st.bg;
+  carrier.style.background = colA > 0 ? `rgba(64,63,131,${lerp(1, 0.22, colA)})` : st.bg;
   carrier.style.border = st.bd > 0.05 ? `${st.bd}px solid ${C.purple}` : 'none';
   carrier.style.transform = `rotate(${st.rot || 0}rad) scale(${st.sx},${st.sy})`;
   carrier.style.opacity = st.a;
@@ -538,9 +539,10 @@ window.renderFrame = function (f) {
   carLab.style.opacity = st.icon ? 1 : st.la;
   const pc = carrierState(f - 0.5, c), nc = carrierState(f + 0.5, c);
   const cvx = Math.abs(nc.cx - pc.cx) + Math.abs(nc.w - pc.w) * 0.5, cvy = Math.abs(nc.cy - pc.cy) + Math.abs(nc.h - pc.h) * 0.5;
-  mbCar.setAttribute('stdDeviation', `${blurAmt(cvx) * 0.7} ${blurAmt(cvy) * 0.7}`);
+  const cb = st.crisp && f < 368 ? 0 : 0.7;
+  mbCar.setAttribute('stdDeviation', `${blurAmt(cvx) * cb} ${blurAmt(cvy) * cb}`);
   // hide the real elements the carrier is standing in for
-  vis(pillReal, f >= 354 && f < 430 ? 0 : 1);
+  vis(pillReal, f >= 354 && f < 440 ? 0 : 1);
 
   // cursor: hover on card art, glide to the heart; then hover the guide card
   let cu = null;
@@ -553,7 +555,7 @@ window.renderFrame = function (f) {
     cu = [lerp(x, p2[0], go), lerp(y, p2[1], go) - Math.sin(Math.PI * go) * 40];
     const leave = E.inCubic(prog(f, 578, 594)); cu[0] += leave * 500; cu[1] += leave * 300;
   } else if (f >= 862 && f < 960) {
-    const p1 = proj(G.guide.xs[0] + 300, G.guide.y + 170, c);
+    const p1 = proj(G.guide.xs[0] + 330, G.guide.y + 92, c);
     const enter = E.outCubic(prog(f, 862, A.guide_hover));
     cu = [lerp(W + 40, p1[0], enter) + drift(f, 3, 80), lerp(p1[1] + 200, p1[1], enter) + drift(f, 2, 110)];
     const leave = E.inCubic(prog(f, 944, 960)); cu[0] += leave * 600; cu[1] += leave * 200;
