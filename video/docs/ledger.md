@@ -27,3 +27,14 @@ Measured: 1920×1080, 60 fps, 1200 frames, 20.000 s. Frozen total **3.07 s** (fa
 - Sound-off read: **3/5**. The story was retold correctly (code → page → hover details → repo URL). Confusions: the counter's meaning, ghosted dive frames, `.l-2-4` too small, "clone" not clear until the end, and a static end.
 - Fact check: **fail**, on 3 items: the counter had no facts entry, the lorem text had no facts entry, and F4's line numbers were off by one. Nothing invented; everything else was verified verbatim.
 - Fixes applied: `px` unit and F22 for the counter; F23 for the lorem copy; F4 corrected to header.css:14-15; editor tab now reads `gigaland-clone / index.html` (F24); grid label enlarged 30 → 40 px; blur cap 26 → 18 px; micro-motion added to the hero hold, macro, type and end holds.
+- Frame critic + director (r1): **one more pass**. Top items and what was done:
+  1. The 80 moment fired 20 frames early and never held at 80. Fix: the count eases into 80 (f344), holds, crosses to 81 at f354 (code line lights up), and the plate collapses into the header, which is solid on f360 (the drop).
+  2. The glyph swing had no hit and the glyph was ~10 % visible. Fix: the cursor's hover starts the CSS swing (`ease`, 0.7 s) on the beat at f900, and the thunk sfx moves to 15.0 s. Glyph opacity raised 0.2 → 0.42 (noted as a deviation in human-check).
+  3. The headline ghosted under the header. Fix: hero text fades as it passes under the fixed header.
+  4. The carrier changed colour on the plates, and the two plates shared a layout. Fix: the carrier stays #8364E2 on both plates. The type beat is now a split layout: counts on the left, the 7 real file names as tabs on the right, cascading on 16ths.
+  5. Safe margins. Fix: the page top now sits 54–64 px below the frame top (starfield extended above), and the guide title is ≥108 px from the top.
+  6. An orphan column card before the tiles. Fix: the centre tile lands first inside the column (order 2,1,3,0,4).
+  7. Small text. Fix: collections shot pushed in from 1.3× to 1.62×, credit enlarged 22 → 26 px at 78 % white.
+  8. Dead holds. Fix: the drop to the button starts 20 frames earlier; pushes and floats added.
+  9. Soft headline landing. Fix: inOutCubic approach plus a 4.5 % landing bump that settles by spring.
+  10. Sync: tiles 3–4 frames late and camera whooshes +2–5 frames. Fix: tile spring offset −13 f, and each camera move's midpoint re-centred on its whoosh frame.

@@ -288,8 +288,8 @@
   },
   {
    "type": "glyph_swing",
-   "time": 15.5,
-   "frame": 930
+   "time": 15.0,
+   "frame": 900
   },
   {
    "type": "whoosh",
@@ -358,8 +358,8 @@
   "tile0": 720,
   "tile_step": 15,
   "guide_in": 870,
-  "guide_hover": 894,
-  "glyph_swing": 930,
+  "guide_hover": 900,
+  "glyph_swing": 900,
   "fly_to_camera": 960,
   "type_a": 975,
   "type_b": 1020,
@@ -475,8 +475,8 @@
   ],
   [
    "glyph_swing",
-   15.5,
-   3.8
+   15.0,
+   3.1
   ],
   [
    "whoosh",

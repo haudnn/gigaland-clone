@@ -261,7 +261,7 @@ whoosh(11.5, 0.55, 0.30)                      # -> Hot Collections
 for k in range(5):
     tick(12.0 + k * 0.25, label='tile_land')  # 8th-note stagger
 whoosh(14.5, 0.55, 0.30)                      # -> guide card
-thunk(15.5, label='glyph_swing')              # -25deg swing settles
+thunk(15.0, label='glyph_swing')              # cursor hover starts the -25deg swing
 whoosh(16.0, 0.6, 0.22)                       # icon tile flies to camera -> full-frame type
 
 os.makedirs(os.path.join(ROOT, 'audio'), exist_ok=True)
@@ -290,8 +290,8 @@ timing = {
     'actions': {
         'headline_land': 60, 'editor_out': 120, 'button_land': 150, 'plate_open': 276,
         'header_snap': 360, 'dive': 480, 'hover': 525, 'heart_hover': 570, 'pullback': 600,
-        'collections_in': 690, 'tile0': 720, 'tile_step': 15, 'guide_in': 870, 'guide_hover': 894,
-        'glyph_swing': 930, 'fly_to_camera': 960, 'type_a': 975, 'type_b': 1020, 'end_hit': 1080,
+        'collections_in': 690, 'tile0': 720, 'tile_step': 15, 'guide_in': 870, 'guide_hover': 900,
+        'glyph_swing': 900, 'fly_to_camera': 960, 'type_a': 975, 'type_b': 1020, 'end_hit': 1080,
     },
 }
 with open(os.path.join(ROOT, 'timing.json'), 'w') as f:
