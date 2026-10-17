@@ -1,0 +1,11 @@
+import { chromium } from '/opt/node22/lib/node_modules/playwright/index.mjs';
+const b = await chromium.launch();
+const p = await b.newPage({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 2 });
+await p.route('**/*', r => { const u = r.request().url(); if (u.startsWith('file:')) return r.continue(); return r.abort(); });
+await p.goto('file:///home/user/gigaland-clone/index.html');
+await p.waitForTimeout(500);
+await p.screenshot({ path: 'docs/capture/page-full.png', fullPage: true });
+await p.screenshot({ path: 'docs/capture/hero.png' });
+const m = await p.evaluate(() => [...document.querySelectorAll('.header,.introduce__title-big,.introduce__btn,.content__new-wrapper,.content__trending-wrap,.content__guide-wrap,.content__connect-wrap')].map(e => { const r = e.getBoundingClientRect(); return [e.className, Math.round(r.x), Math.round(r.y + scrollY), Math.round(r.width), Math.round(r.height), getComputedStyle(e).fontFamily, getComputedStyle(e).backgroundColor]; }));
+console.log(JSON.stringify(m));
+await b.close();

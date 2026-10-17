@@ -1,0 +1,188 @@
+{
+  "_note": "Only source for words on screen. 'ui_copy' items appear as the page's own interface text (placeholder content of the template), never as claims about the world.",
+  "source_repo": "https://github.com/haudnn/gigaland-clone",
+  "facts": [
+    {
+      "id": "F1",
+      "claim": "Hero headline 'Create, sell and collect digital items.'",
+      "kind": "ui_copy",
+      "source": "index.html:136",
+      "sentence": "Create, sell and collect digital items."
+    },
+    {
+      "id": "F2",
+      "claim": "Kicker 'GIGALAND MARKET'",
+      "kind": "ui_copy",
+      "source": "index.html:133",
+      "sentence": "GIGALAND MARKET"
+    },
+    {
+      "id": "F3",
+      "claim": "Header becomes solid once the page scrolls past 80 px (class .active)",
+      "kind": "claim",
+      "source": "index.html:772-777",
+      "sentence": "if($(window).scrollTop() > 80) { $(\".header\").addClass(\"active\"); }"
+    },
+    {
+      "id": "F4",
+      "claim": "Active header background rgba(34, 38, 46, 0.9)",
+      "kind": "style",
+      "source": "assets/css/header.css:14-15",
+      "sentence": ".header.active { background: rgba(34, 38, 46, 0.9);"
+    },
+    {
+      "id": "F5",
+      "claim": "Card image scales to 1.02 on hover over 0.3 s",
+      "kind": "claim",
+      "source": "assets/css/style.css (img-animation, .content__new-wrapper:hover .content__new-img)",
+      "sentence": "animation: img-animation linear 0.3s forwards; ... transform: scale(1.02, 1.02);"
+    },
+    {
+      "id": "F6",
+      "claim": "Heart icon turns #ec7498 on hover",
+      "kind": "claim",
+      "source": "assets/css/style.css (.content__new-reaction-icon:hover)",
+      "sentence": ".content__new-reaction-icon:hover{ color: #ec7498;"
+    },
+    {
+      "id": "F7",
+      "claim": "Hot Collections uses a 5-column class: .l-2-4 { flex: 0 0 20% }",
+      "kind": "claim",
+      "source": "assets/css/grid.css:330-333 + index.html:353",
+      "sentence": ".l-2-4 { flex: 0 0 20%; max-width: 20%; }"
+    },
+    {
+      "id": "F8",
+      "claim": "Guide card background icon rotates -25deg on hover",
+      "kind": "claim",
+      "source": "assets/css/style.css (.content__guide-wrap:hover .content__guide-background-icon)",
+      "sentence": "transform: rotate(-25deg);"
+    },
+    {
+      "id": "F9",
+      "claim": "1 HTML file",
+      "kind": "claim",
+      "source": "repo tree: index.html is the only .html outside font demo folders",
+      "sentence": "index.html"
+    },
+    {
+      "id": "F10",
+      "claim": "6 CSS files",
+      "kind": "claim",
+      "source": "assets/css/: base, footer, grid, header, responsive, style",
+      "sentence": "base.css footer.css grid.css header.css responsive.css style.css"
+    },
+    {
+      "id": "F11",
+      "claim": "Typeface DM Sans",
+      "kind": "style",
+      "source": "assets/css/base.css:16",
+      "sentence": "font-family: 'DM Sans', sans-serif;"
+    },
+    {
+      "id": "F12",
+      "claim": "Brand purples #8364E2 and #403f83",
+      "kind": "style",
+      "source": "assets/css/base.css:5-7",
+      "sentence": "--primary-color: #403f83; --secondary-color: #8364E2;"
+    },
+    {
+      "id": "F13",
+      "claim": "Original design credit: Gigaland by Designesia",
+      "kind": "credit",
+      "source": "index.html:748",
+      "sentence": "© Copyright 2021 - Gigaland by Designesia"
+    },
+    {
+      "id": "F14",
+      "claim": "Repo URL github.com/haudnn/gigaland-clone",
+      "kind": "cta",
+      "source": "git remote origin",
+      "sentence": "https://github.com/haudnn/gigaland-clone"
+    },
+    {
+      "id": "F15",
+      "claim": "Section names: New Items, Hot Collections, Top Sellers, Create and Sell Now",
+      "kind": "ui_copy",
+      "source": "index.html:216,350,432,637",
+      "sentence": "New Items / Hot Collections / Top Sellers / Create and Sell Now"
+    },
+    {
+      "id": "F16",
+      "claim": "Card UI copy: Finally Free, 0.08 ETH, 1/20, Place a bid, 50, 1d 14h 40m 25s",
+      "kind": "ui_copy",
+      "source": "index.html:233-247",
+      "sentence": "1d 14h 40m 25s / Finally Free / 0.08 ETH / 1/20 / Place a bid / 50"
+    },
+    {
+      "id": "F17",
+      "claim": "Collection UI copy: Abstraction, ERC-192",
+      "kind": "ui_copy",
+      "source": "index.html:364-365",
+      "sentence": "Abstraction / ERC-192"
+    },
+    {
+      "id": "F18",
+      "claim": "Guide UI copy: Set up your wallet",
+      "kind": "ui_copy",
+      "source": "index.html:647",
+      "sentence": "Set up your wallet"
+    },
+    {
+      "id": "F19",
+      "claim": "Nav and button copy: Home, Explore, Author, Stats, Connect Wallet, Explore button, search placeholder",
+      "kind": "ui_copy",
+      "source": "index.html:33,41-104,119,143",
+      "sentence": "search item here... / Home / Explore / Author / Stats / Connect Wallet / Explore"
+    },
+    {
+      "id": "F20",
+      "claim": "Wallet names: Metamask, Bitski, Formatic, WalletConnect, Coinbase Wallet, Arkane",
+      "kind": "ui_copy",
+      "source": "index.html:179-209",
+      "sentence": "Metamask / Bitski / Formatic / WalletConnect / Coinbase Wallet / Arkane"
+    },
+    {
+      "id": "F21",
+      "claim": "Code lines shown in the editor are verbatim from index.html:132-136 and grid.css:330-333",
+      "kind": "code",
+      "source": "index.html, assets/css/grid.css",
+      "sentence": "<span class=\"introduce__title-big\"> Create, sell and collect digital items. </span>"
+    },
+    {
+      "id": "F22",
+      "claim": "The large counter on the purple plate is the rebuilt page's own scrollTop in px as the film scrolls it; it switches the header when it passes 80",
+      "kind": "demo",
+      "source": "film render (src/film.js sY(f)) applying the rule in index.html:773",
+      "sentence": "if($(window).scrollTop() > 80) { $(\".header\").addClass(\"active\"); }"
+    },
+    {
+      "id": "F23",
+      "claim": "Guide card body copy (template placeholder text)",
+      "kind": "ui_copy",
+      "source": "index.html:648",
+      "sentence": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem."
+    },
+    {
+      "id": "F24",
+      "claim": "Editor tab path 'gigaland-clone / index.html'",
+      "kind": "claim",
+      "source": "repo name (git remote) + file name",
+      "sentence": "https://github.com/haudnn/gigaland-clone ; index.html"
+    }
+  ],
+  "excluded": [
+    {
+      "text": "94215 Collectibles / 27K Auctions / 4k NFT Artist",
+      "reason": "Template placeholder statistics; on screen they would read as real metrics."
+    },
+    {
+      "text": "'responsive'",
+      "reason": "responsive.css is empty; not claimed."
+    },
+    {
+      "text": "line counts",
+      "reason": "Off-by-one risk with missing trailing newlines; file counts used instead."
+    }
+  ]
+}

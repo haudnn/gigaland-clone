@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>gigaland-clone film</title>
+<style>
+@font-face { font-family: 'DM Sans'; src: url(../fonts/DMSans-latin.woff2) format('woff2'); font-weight: 100 1000; }
+@font-face { font-family: 'JB Mono'; src: url(../fonts/JetBrainsMono-latin.woff2) format('woff2'); font-weight: 100 800; }
+@font-face { font-family: 'FA'; src: url(../../assets/font/fontawesome-free-5.15.4-web/fontawesome-free-5.15.4-web/webfonts/fa-solid-900.woff2) format('woff2'); font-weight: 900; }
+:root {
+  --purple: #8364E2; --deep: #403f83; --ink: #212428; --card: #282b2f; --white: #ffffff; --grey: #a2a2a2; --pink: #ec7498;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: #000; overflow: hidden; }
+body { font-family: 'DM Sans', sans-serif; color: var(--white); -webkit-font-smoothing: antialiased; }
+#stage { position: relative; overflow: hidden; background: var(--ink); }
+.abs { position: absolute; left: 0; top: 0; }
+.mono { font-family: 'JB Mono', monospace; }
+.fa { font-family: 'FA'; font-weight: 900; font-style: normal; }
+#page { position: absolute; left: 0; top: 0; width: 1440px; height: 2700px; transform-origin: 0 0; will-change: transform; }
+#pagebg { position: absolute; left: -3000px; top: -3000px; width: 7440px; height: 9000px; background: var(--ink); }
+.hero-bg { position: absolute; left: -400px; top: 0; width: 2240px; height: 1010px; background: url(../../assets/img/background.jpg) center / cover; }
+.hero-fade { position: absolute; left: -400px; top: 860px; width: 2240px; height: 160px; background: linear-gradient(rgba(33,36,40,0), var(--ink)); }
+.header { position: absolute; left: 0; width: 1440px; height: 85px; }
+.hdr-bg { position: absolute; inset: 0; background: rgba(34, 38, 46, 0.9); box-shadow: 0 1px 5px rgba(0,0,0,.25); }
+.navlink { position: absolute; top: 30px; font-size: 14px; font-weight: 800; line-height: 26px; }
+.navlink .fa { font-size: 12px; color: var(--grey); margin-left: 6px; }
+.search { position: absolute; border-radius: 27px; background: rgba(255,255,255,.05); font-size: 14px; padding: 12px 10px; color: #fff; }
+.pillreal { position: absolute; border-radius: 33px; background: var(--purple); font-size: 14px; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+.kicker { position: absolute; font-size: 16px; font-weight: 800; color: var(--purple); letter-spacing: 0; }
+.headline { position: absolute; font-size: 50px; font-weight: 800; line-height: 57px; white-space: nowrap; }
+.portrait { position: absolute; }
+.portrait img { position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
+.wtile { position: absolute; background: var(--card); border-radius: 20px; box-shadow: 0 0 5px rgba(0,0,0,.2); display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 600; white-space: nowrap; }
+.sec-title { position: absolute; font-size: 30px; font-weight: 600; }
+.card { position: absolute; background: var(--card); border-radius: 20px; box-shadow: 0 0 5px rgba(0,0,0,.2); }
+.art { position: absolute; border-radius: 5px; overflow: hidden; }
+.art > div { position: absolute; inset: 0; background-repeat: no-repeat; }
+.avatar { position: absolute; border-radius: 50%; overflow: hidden; background-repeat: no-repeat; }
+.check { position: absolute; width: 22px; height: 22px; border-radius: 50%; background: var(--purple); display: flex; align-items: center; justify-content: center; font-size: 10px; }
+.timer { position: absolute; border-radius: 16px; background: var(--deep); border: 1px solid var(--purple); font-size: 14px; font-weight: 700; letter-spacing: 1px; display: flex; align-items: center; justify-content: center; white-space: nowrap; }
+.t16 { position: absolute; font-size: 16px; font-weight: 500; }
+.t14 { position: absolute; font-size: 14px; font-weight: 500; }
+.tile { position: absolute; background: var(--card); border-radius: 10px; box-shadow: 0 0 5px rgba(0,0,0,.2); text-align: center; }
+.colguide { position: absolute; width: 0; border-left: 2px dashed rgba(162,162,162,.45); }
+.guide { position: absolute; background: #26292d; border-radius: 5px; box-shadow: 0 0 5px rgba(0,0,0,.2); overflow: hidden; }
+.gicon { position: absolute; background: var(--purple); border-radius: 5px; display: flex; align-items: center; justify-content: center; }
+.glyph { position: absolute; opacity: .2; }
+#carrier { position: absolute; display: flex; align-items: center; justify-content: center; white-space: nowrap; overflow: hidden; will-change: transform; }
+#carrier .lab { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); white-space: nowrap; }
+.layer { position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
+.line { position: absolute; white-space: pre; }
+.mask { position: absolute; overflow: hidden; }
+.mask > div { will-change: transform; }
+.cursor { position: absolute; width: 34px; height: 34px; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <filter id="mbPage" x="-5%" y="-5%" width="110%" height="110%"><feGaussianBlur id="mbPageB" stdDeviation="0 0"/></filter>
+  <filter id="mbCar" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur id="mbCarB" stdDeviation="0 0"/></filter>
+  <filter id="mbFly" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur id="mbFlyB" stdDeviation="0 0"/></filter>
+</svg>
+<div id="stage"></div>
+<script src="timing.js"></script>
+<script src="film.js"></script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+out/
+audio/*_raw.wav
+audio/mix_raw.wav
+src/timing.js

@@ -1,0 +1,487 @@
+{
+ "fps": 60,
+ "bpm": 120,
+ "duration_s": 20.0,
+ "frames": 1200,
+ "frames_per_beat": 30,
+ "beats": [
+  {
+   "beat": 0,
+   "time": 0.0,
+   "frame": 0
+  },
+  {
+   "beat": 1,
+   "time": 0.5,
+   "frame": 30
+  },
+  {
+   "beat": 2,
+   "time": 1.0,
+   "frame": 60
+  },
+  {
+   "beat": 3,
+   "time": 1.5,
+   "frame": 90
+  },
+  {
+   "beat": 4,
+   "time": 2.0,
+   "frame": 120
+  },
+  {
+   "beat": 5,
+   "time": 2.5,
+   "frame": 150
+  },
+  {
+   "beat": 6,
+   "time": 3.0,
+   "frame": 180
+  },
+  {
+   "beat": 7,
+   "time": 3.5,
+   "frame": 210
+  },
+  {
+   "beat": 8,
+   "time": 4.0,
+   "frame": 240
+  },
+  {
+   "beat": 9,
+   "time": 4.5,
+   "frame": 270
+  },
+  {
+   "beat": 10,
+   "time": 5.0,
+   "frame": 300
+  },
+  {
+   "beat": 11,
+   "time": 5.5,
+   "frame": 330
+  },
+  {
+   "beat": 12,
+   "time": 6.0,
+   "frame": 360
+  },
+  {
+   "beat": 13,
+   "time": 6.5,
+   "frame": 390
+  },
+  {
+   "beat": 14,
+   "time": 7.0,
+   "frame": 420
+  },
+  {
+   "beat": 15,
+   "time": 7.5,
+   "frame": 450
+  },
+  {
+   "beat": 16,
+   "time": 8.0,
+   "frame": 480
+  },
+  {
+   "beat": 17,
+   "time": 8.5,
+   "frame": 510
+  },
+  {
+   "beat": 18,
+   "time": 9.0,
+   "frame": 540
+  },
+  {
+   "beat": 19,
+   "time": 9.5,
+   "frame": 570
+  },
+  {
+   "beat": 20,
+   "time": 10.0,
+   "frame": 600
+  },
+  {
+   "beat": 21,
+   "time": 10.5,
+   "frame": 630
+  },
+  {
+   "beat": 22,
+   "time": 11.0,
+   "frame": 660
+  },
+  {
+   "beat": 23,
+   "time": 11.5,
+   "frame": 690
+  },
+  {
+   "beat": 24,
+   "time": 12.0,
+   "frame": 720
+  },
+  {
+   "beat": 25,
+   "time": 12.5,
+   "frame": 750
+  },
+  {
+   "beat": 26,
+   "time": 13.0,
+   "frame": 780
+  },
+  {
+   "beat": 27,
+   "time": 13.5,
+   "frame": 810
+  },
+  {
+   "beat": 28,
+   "time": 14.0,
+   "frame": 840
+  },
+  {
+   "beat": 29,
+   "time": 14.5,
+   "frame": 870
+  },
+  {
+   "beat": 30,
+   "time": 15.0,
+   "frame": 900
+  },
+  {
+   "beat": 31,
+   "time": 15.5,
+   "frame": 930
+  },
+  {
+   "beat": 32,
+   "time": 16.0,
+   "frame": 960
+  },
+  {
+   "beat": 33,
+   "time": 16.5,
+   "frame": 990
+  },
+  {
+   "beat": 34,
+   "time": 17.0,
+   "frame": 1020
+  },
+  {
+   "beat": 35,
+   "time": 17.5,
+   "frame": 1050
+  },
+  {
+   "beat": 36,
+   "time": 18.0,
+   "frame": 1080
+  },
+  {
+   "beat": 37,
+   "time": 18.5,
+   "frame": 1110
+  },
+  {
+   "beat": 38,
+   "time": 19.0,
+   "frame": 1140
+  },
+  {
+   "beat": 39,
+   "time": 19.5,
+   "frame": 1170
+  }
+ ],
+ "drop": {
+  "time": 6.0,
+  "frame": 360
+ },
+ "end_hit": {
+  "time": 18.0,
+  "frame": 1080
+ },
+ "voice": [],
+ "sfx": [
+  {
+   "type": "headline_land",
+   "time": 1.0,
+   "frame": 60
+  },
+  {
+   "type": "whoosh",
+   "time": 2.0,
+   "frame": 120
+  },
+  {
+   "type": "button_land",
+   "time": 2.5,
+   "frame": 150
+  },
+  {
+   "type": "whoosh",
+   "time": 4.6,
+   "frame": 276
+  },
+  {
+   "type": "header_snap",
+   "time": 6.0,
+   "frame": 360
+  },
+  {
+   "type": "whoosh",
+   "time": 8.0,
+   "frame": 480
+  },
+  {
+   "type": "whoosh",
+   "time": 10.0,
+   "frame": 600
+  },
+  {
+   "type": "whoosh",
+   "time": 11.5,
+   "frame": 690
+  },
+  {
+   "type": "tile_land",
+   "time": 12.0,
+   "frame": 720
+  },
+  {
+   "type": "tile_land",
+   "time": 12.25,
+   "frame": 735
+  },
+  {
+   "type": "tile_land",
+   "time": 12.5,
+   "frame": 750
+  },
+  {
+   "type": "tile_land",
+   "time": 12.75,
+   "frame": 765
+  },
+  {
+   "type": "tile_land",
+   "time": 13.0,
+   "frame": 780
+  },
+  {
+   "type": "whoosh",
+   "time": 14.5,
+   "frame": 870
+  },
+  {
+   "type": "glyph_swing",
+   "time": 15.5,
+   "frame": 930
+  },
+  {
+   "type": "whoosh",
+   "time": 16.0,
+   "frame": 960
+  }
+ ],
+ "scenes": [
+  {
+   "id": "code",
+   "in": 0,
+   "out": 120
+  },
+  {
+   "id": "hero",
+   "in": 120,
+   "out": 276
+  },
+  {
+   "id": "eighty",
+   "in": 276,
+   "out": 360
+  },
+  {
+   "id": "scroll",
+   "in": 360,
+   "out": 480
+  },
+  {
+   "id": "items",
+   "in": 480,
+   "out": 690
+  },
+  {
+   "id": "collections",
+   "in": 690,
+   "out": 870
+  },
+  {
+   "id": "guide",
+   "in": 870,
+   "out": 960
+  },
+  {
+   "id": "type",
+   "in": 960,
+   "out": 1080
+  },
+  {
+   "id": "end",
+   "in": 1080,
+   "out": 1200
+  }
+ ],
+ "actions": {
+  "headline_land": 60,
+  "editor_out": 120,
+  "button_land": 150,
+  "plate_open": 276,
+  "header_snap": 360,
+  "dive": 480,
+  "hover": 525,
+  "heart_hover": 570,
+  "pullback": 600,
+  "collections_in": 690,
+  "tile0": 720,
+  "tile_step": 15,
+  "guide_in": 870,
+  "guide_hover": 894,
+  "glyph_swing": 930,
+  "fly_to_camera": 960,
+  "type_a": 975,
+  "type_b": 1020,
+  "end_hit": 1080
+ },
+ "detected": {
+  "bpm": 119.68,
+  "kick_onsets_s": [
+   2.0,
+   3.0,
+   4.0,
+   5.0,
+   6.0,
+   6.504,
+   7.0027,
+   7.504,
+   7.808,
+   8.1307,
+   8.536,
+   9.1307,
+   9.536,
+   10.08,
+   10.76,
+   11.08,
+   11.76,
+   12.08,
+   12.6293,
+   13.08,
+   13.5893,
+   14.1493,
+   14.5253,
+   15.1493,
+   15.5493,
+   16.1307,
+   16.536,
+   17.0,
+   17.536,
+   18.0,
+   18.344
+  ],
+  "max_offset_frames": 1.8
+ },
+ "sfx_band_margin_db": [
+  [
+   "headline_land",
+   1.0,
+   6.9
+  ],
+  [
+   "whoosh",
+   2.0,
+   10.6
+  ],
+  [
+   "button_land",
+   2.5,
+   17.2
+  ],
+  [
+   "whoosh",
+   4.6,
+   10.1
+  ],
+  [
+   "header_snap",
+   6.0,
+   4.3
+  ],
+  [
+   "whoosh",
+   8.0,
+   8.0
+  ],
+  [
+   "whoosh",
+   10.0,
+   7.0
+  ],
+  [
+   "whoosh",
+   11.5,
+   1.8
+  ],
+  [
+   "tile_land",
+   12.0,
+   17.8
+  ],
+  [
+   "tile_land",
+   12.25,
+   13.4
+  ],
+  [
+   "tile_land",
+   12.5,
+   6.2
+  ],
+  [
+   "tile_land",
+   12.75,
+   13.6
+  ],
+  [
+   "tile_land",
+   13.0,
+   17.9
+  ],
+  [
+   "whoosh",
+   14.5,
+   2.5
+  ],
+  [
+   "glyph_swing",
+   15.5,
+   3.8
+  ],
+  [
+   "whoosh",
+   16.0,
+   9.5
+  ]
+ ]
+}
