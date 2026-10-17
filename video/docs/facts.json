@@ -176,6 +176,13 @@
       "kind": "cta",
       "source": "sign-off (brief.md); points at F14",
       "sentence": "github.com/haudnn/gigaland-clone"
+    },
+    {
+      "id": "F26",
+      "claim": "Card avatar gets a 5px purple border on hover",
+      "kind": "claim",
+      "source": "assets/css/style.css:71-73",
+      "sentence": ".content__new-user:hover { border: 5px solid var(--secondary-color) !important; }"
     }
   ],
   "excluded": [

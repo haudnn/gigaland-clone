@@ -97,7 +97,7 @@ function itemsCam(f) {
   }
   const sa = 2.6 + 0.1 * prog(f, 480, 600);
   const a = cam(c1, G.card.y + G.card.h / 2 + 80 / sa, sa);
-  const wide = cam(lerp(420, 1020, E.inOutCubic(prog(f, 650, 690))), 1480, 1.32);
+  const wide = cam(lerp(420, 1020, E.inOutCubic(prog(f, 634, 690))), 1480, 1.32);
   return mixCam(a, wide, E.inOutCubic(prog(f, 580, 620)));
 }
 function collCam(f) {
