@@ -34,19 +34,19 @@
       "id": "F5",
       "claim": "Card image scales to 1.02 on hover over 0.3 s",
       "kind": "claim",
-      "source": "assets/css/style.css (img-animation, .content__new-wrapper:hover .content__new-img)",
+      "source": "assets/css/style.css:68-81",
       "sentence": "animation: img-animation linear 0.3s forwards; ... transform: scale(1.02, 1.02);"
     },
     {
       "id": "F6",
       "claim": "Heart icon turns #ec7498 on hover",
       "kind": "claim",
-      "source": "assets/css/style.css (.content__new-reaction-icon:hover)",
+      "source": "assets/css/style.css:184-185",
       "sentence": ".content__new-reaction-icon:hover{ color: #ec7498;"
     },
     {
       "id": "F7",
-      "claim": "Hot Collections uses a 5-column class: .l-2-4 { flex: 0 0 20% }",
+      "claim": "Hot Collections uses a 5-column class: .l-2-4 { flex: 0 0 20% } (defined inside @media (min-width: 1113px), grid.css:279 — the desktop breakpoint the film shows)",
       "kind": "claim",
       "source": "assets/css/grid.css:330-333 + index.html:353",
       "sentence": ".l-2-4 { flex: 0 0 20%; max-width: 20%; }"
@@ -55,7 +55,7 @@
       "id": "F8",
       "claim": "Guide card background icon rotates -25deg on hover",
       "kind": "claim",
-      "source": "assets/css/style.css (.content__guide-wrap:hover .content__guide-background-icon)",
+      "source": "assets/css/style.css:395-399",
       "sentence": "transform: rotate(-25deg);"
     },
     {
@@ -146,7 +146,7 @@
       "id": "F21",
       "claim": "Code lines shown in the editor are verbatim from index.html:132-136 and grid.css:330-333",
       "kind": "code",
-      "source": "index.html, assets/css/grid.css",
+      "source": "index.html:130-138, assets/css/grid.css:330-333",
       "sentence": "<span class=\"introduce__title-big\"> Create, sell and collect digital items. </span>"
     },
     {
@@ -169,6 +169,13 @@
       "kind": "claim",
       "source": "repo name (git remote) + file name",
       "sentence": "https://github.com/haudnn/gigaland-clone ; index.html"
+    },
+    {
+      "id": "F25",
+      "claim": "Call to action 'Read the source' above the repo URL",
+      "kind": "cta",
+      "source": "sign-off (brief.md); points at F14",
+      "sentence": "github.com/haudnn/gigaland-clone"
     }
   ],
   "excluded": [

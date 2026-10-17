@@ -68,7 +68,7 @@ function sY(f) {
   if (f < 344) return 80 * E.outCubic(prog(f, 284, 344));             // arrives at 80 and holds
   if (f < 354) return 80;
   if (f < 360) return 81;                                              // crosses: > 80 → .header.active
-  if (f < 470) return hermite(81, 1100, 40, 0, prog(f, 360, 470));
+  if (f < 456) return lerp(81, 1100, E.inOutCubic(prog(f, 362, 452)));
   return 1100;
 }
 
@@ -76,41 +76,43 @@ function sY(f) {
 const cam = (cx, cy, s, rot = 0) => ({ cx, cy, s, rot });
 function mixCam(a, b, t) { return cam(lerp(a.cx, b.cx, t), lerp(a.cy, b.cy, t), Math.exp(lerp(Math.log(a.s), Math.log(b.s), t)), lerp(a.rot, b.rot, t)); }
 function viewportCam(f) { // the camera behaves like a browser viewport at 1440 css px
-  const s = V ? 1.5 : W / 1440;
-  return cam(V ? lerp(1080, 400, E.inOutCubic(prog(f, 392, 470))) : 720, sY(f) + (H / 2 - (V ? 230 : 60)) / s, s);
+  if (!V) return cam(720, sY(f) + (H / 2 - 60) / (W / 1440), W / 1440);
+  const z = E.inOutCubic(prog(f, 380, 452)), s = lerp(1.5, 2.1, z);
+  return cam(lerp(1080, 330, z), sY(f) + (H / 2 - 230) / s, s);
 }
 function heroCam(f) {
-  if (!V) { const p = E.inOutCubic(prog(f, 0, 276)), q = E.inOutCubic(prog(f, 196, 290)); const sc = lerp(1.37, 1.425, p) * (1 + 0.07 * q); return cam(lerp(716, 742, p) + 18 * q, (H / 2 - 64) / sc + 10 * q, sc); }
-  const pan = E.inOutCubic(prog(f, 214, 268));
-  return cam(lerp(413, 1080, pan) + 14 * prog(f, 150, 214), (H / 2 - 230) / 1.55 + drift(f, 4, 300) - 10 * prog(f, 150, 214), (1.55 + 0.02 * prog(f, 0, 276)) * (1 + 0.06 * E.inOutCubic(prog(f, 240, 290))));
+  if (!V) { const p = E.inOutCubic(prog(f, 0, 276)); const sc = lerp(1.37, 1.43, p); return cam(lerp(712, 720, p) + drift(f, 3, 240), (H / 2 - 64) / sc + 8 * p + drift(f, 2, 180, 1), sc); }
+  const pan = E.inOutCubic(prog(f, 150, 204)), sc = 1.55 + 0.03 * prog(f, 0, 276);
+  return cam(lerp(413, 1080, pan) + drift(f, 4, 260), 280 + (H / 2 - 760) / sc + drift(f, 4, 300) - 12 * prog(f, 204, 276), sc);
 }
 function itemsCam(f) {
   const c1 = G.card.xs[0] + G.card.w / 2;
   if (!V) {
     const a = cam(c1 + 6, G.card.y + 168, 3.0), b = cam(c1 + 4 + 10 * prog(f, 566, 600), G.card.y + 312 - 14 * prog(f, 566, 600), 3.0 * (1 + 0.05 * prog(f, 566, 600)));
     const wide = cam(720, 1474, 1.37);
-    let c = mixCam(a, b, E.inOutCubic(prog(f, 540, 566)));
+    let c = mixCam(a, b, E.inOutCubic(prog(f, 548, 570)));
     c = mixCam(c, wide, E.inOutCubic(prog(f, 580, 620)));
     c.s *= 1 + 0.03 * prog(f, 480, 600) + 0.02 * prog(f, 620, 690);
     return c;
   }
-  const a = cam(c1, G.card.y + G.card.h / 2, 2.9 + 0.12 * prog(f, 480, 600));
-  const wide = cam(lerp(420, 1020, E.inOutCubic(prog(f, 624, 690))), 1480, 1.32);
+  const sa = 2.6 + 0.1 * prog(f, 480, 600);
+  const a = cam(c1, G.card.y + G.card.h / 2 + 80 / sa, sa);
+  const wide = cam(lerp(420, 1020, E.inOutCubic(prog(f, 650, 690))), 1480, 1.32);
   return mixCam(a, wide, E.inOutCubic(prog(f, 580, 620)));
 }
 function collCam(f) {
-  const p = prog(f, 715, 870);
-  return V ? cam(720 + drift(f, 6, 240), 2030, 1.6 + 0.06 * p, -0.06) : cam(652 + drift(f, 5, 260), 2050, 1.62 + 0.07 * p, -0.05);
+  const p = prog(f, 700, 860);
+  return V ? cam(720 + drift(f, 6, 240) + 30 * p, 2030, 1.6 + 0.1 * p, -0.06) : cam(720 + drift(f, 5, 260) + 24 * p, 2036, 1.45 + 0.12 * p, -0.05);
 }
 function guideCam(f) {
-  const c = G.guide.xs[0] + G.guide.w / 2, cy = G.guide.y + G.guide.h / 2;
-  return cam(c + drift(f, 3, 200), cy - (V ? 0 : 22), (V ? 2.25 : 2.3) * (1 + 0.04 * prog(f, 884, 960)));
+  const c = G.guide.xs[0] + G.guide.w / 2, cy = G.guide.y + G.guide.h / 2, p = prog(f, 870, 960);
+  return cam(c + drift(f, 3, 200) + 16 * p, cy - (V ? 0 : 22) - 8 * p, (V ? 2.25 : 2.3) * (1 + 0.08 * p));
 }
 function camera(f) {
   if (f < 276) return heroCam(f);
   if (f < 360) return mixCam(heroCam(275), viewportCam(f), E.inOutCubic(prog(f, 276, 352)));
-  if (f < 462) return viewportCam(f);
-  if (f < 600) return mixCam(viewportCam(f), itemsCam(f), E.inOutQuint(prog(f, 458, 502)));
+  if (f < 456) return viewportCam(f);
+  if (f < 600) return mixCam(viewportCam(f), itemsCam(f), E.inOutQuint(prog(f, 456, 504)));
   if (f < 690) return itemsCam(f);
   if (f < 860) return mixCam(itemsCam(f), collCam(f), E.inOutQuint(prog(f, 676, 704)));
   return mixCam(collCam(f), guideCam(f), E.inOutQuint(prog(f, 856, 884)));
@@ -165,6 +167,7 @@ for (let k = 3; k >= 0; k--) { // card 0 on top for the deal
   const art = el(c, 'art', { left: '20px', top: '40px', width: '267px', height: '267px' });
   const artIn = el(art, ''); const a = ART[k]; crop(artIn, a[3], a[0], a[1], a[2], 267, 267);
   const av = el(c, 'avatar', { left: '20px', top: '20px', width: '50px', height: '50px' }); crop(av, BG, AVA[k][0], AVA[k][1], AVA[k][2], 50, 50);
+  const avRing = el(c, '', { position: 'absolute', left: '20px', top: '20px', width: '50px', height: '50px', borderRadius: '50%', border: '5px solid ' + C.purple });
   el(c, 'check', { left: '54px', top: '50px' }, '<span class="fa">&#xf00c;</span>');
   let timer = null;
   if (k === 2) timer = el(c, 'timer', { left: '141px', top: '25px', width: '146px', height: '36px' }, '1d 14h 40m 25s');
@@ -175,7 +178,7 @@ for (let k = 3; k >= 0; k--) { // card 0 on top for the deal
   el(c, 't14', { left: '20px', top: '384px', color: C.purple }, 'Place a bid');
   const heart = el(c, 't14', { right: '38px', top: '385px', fontSize: '12px', color: C.grey }, '<span class="fa">&#xf004;</span>');
   el(c, 't14', { right: '20px', top: '385px', fontSize: '12px' }, '50');
-  cards[k] = { c, artIn, heart, timer };
+  cards[k] = { c, artIn, heart, timer, avRing };
 }
 el(page, 'sec-title', { left: px(G.collTitle.x), top: px(G.collTitle.y) }, 'Hot Collections');
 const guides = [];
@@ -223,13 +226,13 @@ const CODE = [
   [137, '    </span>'],
   [138, '    <span class="introduce__title-sub">'],
 ];
-const ED = V ? { fs: 33, lh: 58, x: 76, gut: 70 } : { fs: 44, lh: 74, x: 120, gut: 110 };
+const ED = V ? { fs: 32, lh: 58, x: 88, gut: 74 } : { fs: 54, lh: 90, x: 170, gut: 130 };
 const lineTop = i => H / 2 + (i - 4) * ED.lh - ED.lh / 2;
 const editor = el(stage, 'layer');
 const edBg = el(editor, 'layer', { background: 'rgba(33,36,40,0.9)' });
 const edBody = el(editor, 'layer', { transformOrigin: '50% 50%' });
-const edTab = el(edBody, 'mono', { position: 'absolute', left: px(ED.x), top: px(lineTop(0) - (V ? 110 : 120)), fontSize: px(V ? 24 : 24), color: C.grey, letterSpacing: '.5px' }, '<span style="color:#fff">gigaland-clone</span> / index.html');
-el(edBody, '', { position: 'absolute', left: px(ED.x), top: px(lineTop(0) - (V ? 110 : 120) + 44), width: px(V ? 400 : 420), height: '3px', background: C.purple });
+const edTab = el(edBody, 'mono', { position: 'absolute', left: px(ED.x), top: px(lineTop(0) - (V ? 110 : 76)), fontSize: px(V ? 24 : 24), color: C.grey, letterSpacing: '.5px' }, '<span style="color:#fff">gigaland-clone</span> / index.html');
+el(edBody, '', { position: 'absolute', left: px(ED.x), top: px(lineTop(0) - (V ? 110 : 76) + 44), width: px(V ? 400 : 420), height: '3px', background: C.purple });
 function hl(code) { // minimal HTML syntax colouring from the palette
   return code.replace(/(&lt;\/?)([a-z]+)/g, '$1<span style="color:#fff">$2</span>')
     .replace(/(class=)(")([^"]*)(")/g, '<span style="color:#a2a2a2">$1</span>$2<span style="color:#fff">$3</span>$4');
@@ -247,12 +250,12 @@ const flySans = el(stage, '', { position: 'absolute', left: 0, top: 0, fontSize:
 
 // 2) the 80 plate
 const plate = el(stage, 'layer');
-const P80 = V ? { code: 30, num: 400, gap: 330 } : { code: 38, num: 420, gap: 300 };
+const P80 = V ? { code: 30, num: 360, gap: 300 } : { code: 36, num: 340, gap: 250 };
 const pLineA = el(plate, 'mask', { left: 0, width: '100%', top: px(H / 2 - P80.gap), height: px(P80.code * 1.6), textAlign: 'center' });
 const pLineAin = el(pLineA, 'mono', { fontSize: px(P80.code), lineHeight: px(P80.code * 1.6), color: '#fff' }, 'if($(window).scrollTop() &gt; 80) {');
 const pNum = el(plate, '', { position: 'absolute', left: 0, width: '100%', top: px(H / 2 - P80.num * 0.62), textAlign: 'center', fontSize: px(P80.num), fontWeight: 800, lineHeight: px(P80.num * 1.2), letterSpacing: '-8px', fontVariantNumeric: 'tabular-nums' }, '0');
 const pLineB = el(plate, 'mask', { left: 0, width: '100%', top: px(H / 2 + P80.gap - P80.code * 1.6), height: px(P80.code * 1.6 + 8), textAlign: 'center' });
-const pLineBin = el(pLineB, 'mono', { fontSize: px(P80.code), lineHeight: px(P80.code * 1.6), color: C.grey }, '  $(".header").addClass("active");');
+const pLineBin = el(pLineB, 'mono', { fontSize: px(P80.code), lineHeight: px(P80.code * 1.6), color: '#fff' }, '  $(".header").addClass("active");');
 const pUnder = el(plate, '', { position: 'absolute', height: '4px', background: C.purple, top: px(H / 2 + P80.gap + 6) });
 
 // 3) grid label (collections)
@@ -262,7 +265,7 @@ const gLabel = el(stage, 'mono', { position: 'absolute', left: 0, top: 0, paddin
 // 4) full-frame type
 const typeL = el(stage, 'layer');
 // split layout: big counts on one side, the real file names (assets/css + index.html) as tabs on the other
-const TY = V ? { fs: 132, x: 90, y1: 300, y2: 850, lx: 90, ly1: 480, ly2: 1030, row: 62, lfs: 34, lw: 470 }
+const TY = V ? { fs: 132, x: 110, y1: 330, y2: 760, lx: 110, ly1: 520, ly2: 950, row: 64, lfs: 36, lw: 560 }
              : { fs: 150, x: 130, y1: 250, y2: 560, lx: 1130, ly1: 280, ly2: 520, row: 58, lfs: 32, lw: 470 };
 function typeLine(txt, y) { const m = el(typeL, 'mask', { left: px(TY.x - 10), width: px(V ? 960 : 1000), top: px(y), height: px(TY.fs * 1.18) }); return el(m, '', { fontSize: px(TY.fs), fontWeight: 800, lineHeight: px(TY.fs * 1.18), letterSpacing: '-4px', whiteSpace: 'nowrap', paddingLeft: '10px' }, txt); }
 const ty1 = typeLine('1 HTML file', TY.y1), ty2 = typeLine('6 CSS files', TY.y2);
@@ -277,15 +280,18 @@ const carrier = el(stage, '', {}); carrier.id = 'carrier'; carrier.style.filter 
 const carLab = el(carrier, 'lab', {});
 for (const e of [flyMono, flySans, plate, gLabel, typeL]) stage.appendChild(e);
 const endL = el(stage, 'layer');
-const EN = V ? { logoY: 690, nameY: 800, name: 118, urlY: 1010, credY: 1440 } : { logoY: 300, nameY: 400, name: 150, urlY: 640, credY: 960 };
+const EN = V ? { logoY: 690, nameY: 800, name: 118, urlY: 1070, credY: 1440 } : { logoY: 290, nameY: 380, name: 150, urlY: 700, credY: 960 };
 const endLogo = document.createElement('img'); endLogo.src = IMG + 'logo-light.png';
 Object.assign(endLogo.style, { position: 'absolute', width: '334px', height: '72px', left: px(W / 2 - 167), top: px(EN.logoY - 36), imageRendering: 'auto' }); endL.appendChild(endLogo);
 const endNameM = el(endL, 'mask', { left: 0, width: '100%', top: px(EN.nameY), height: px(EN.name * 1.25), textAlign: 'center' });
 const endName = el(endNameM, '', { fontSize: px(EN.name), fontWeight: 800, lineHeight: px(EN.name * 1.25), letterSpacing: '-3px' }, 'gigaland-clone');
 const endCred = el(endL, '', { position: 'absolute', left: 0, width: '100%', top: px(EN.credY), textAlign: 'center', fontSize: px(V ? 28 : 26), color: 'rgba(255,255,255,.78)' }, '© Copyright 2021 - Gigaland by Designesia');
+const endCta = el(endL, '', { position: 'absolute', left: 0, width: '100%', textAlign: 'center', fontSize: px(V ? 30 : 28), fontWeight: 500, color: 'rgba(255,255,255,.85)' }, 'Read the source');
 const URLR = V ? { w: 900, h: 92, fs: 34 } : { w: 900, h: 96, fs: 38 };
 
 // cursor on top
+const vpMask = el(stage, '', { position: 'absolute', left: 0, top: 0, width: '100%', background: C.ink });
+const sweep = el(stage, '', { position: 'absolute', left: 0, height: '4px', background: C.purple, boxShadow: '0 0 18px rgba(131,100,226,.9)' });
 const cursor = el(stage, 'cursor', {}, '<svg width="34" height="34" viewBox="0 0 24 24"><path d="M4 2 L4 19 L8.6 14.6 L11.6 21.4 L14.4 20.2 L11.4 13.6 L17.8 13.4 Z" fill="#fff" stroke="#212428" stroke-width="1.4" stroke-linejoin="round"/></svg>');
 
 /* ---------- carrier states ---------- */
@@ -306,6 +312,10 @@ function flight(f) { // lifted at frame 0, lands on the page headline at A.headl
 }
 function hlRect() { const r = document.getElementById('hlStr').getBoundingClientRect(); const sr = stage.getBoundingClientRect(); return { x: r.left - sr.left - 10, y: r.top - sr.top - 4, w: r.width + 20, h: r.height + 8 }; }
 const full = (bg = C.purple) => S(W / 2, H / 2, W, H, 0, { bg });
+// the 80 plate stops under the fixed header so the header's switch stays in view
+const hdrBottom = f => proj(0, sY(f) + 85, camera(f))[1];
+const plate80 = f => { const hb = hdrBottom(f) + 8; return S(W / 2, (hb + H) / 2, W, H - hb, 0, { bg: C.purple }); };
+const INSET = () => V ? S(W / 2, 900, W - 120, 1400, 30, { bg: C.purple }) : S(W / 2, H / 2, W - 160, H - 140, 28, { bg: C.purple });
 const URLS = () => S(W / 2, EN.urlY + URLR.h / 2, URLR.w, URLR.h, URLR.h / 2, { bg: C.deep, bd: 2, lab: 'github.com/haudnn/gigaland-clone', lfs: URLR.fs, lw: 500, mono: true });
 
 function carrierState(f, c) {
@@ -322,15 +332,15 @@ function carrierState(f, c) {
   }
   const BL = A.button_land;
   if (f < BL) { // anticipation (swell), then drop into the Explore button
-    const sw = 1 + 0.05 * Math.sin(Math.PI * prog(f, A.headline_land + 6, A.headline_land + 22));
-    const o = mixS(head(f), btn(f), E.inOutCubic(prog(f, A.headline_land + 18, BL)), V ? -60 : -70);
+    const sw = 1 + 0.05 * Math.sin(Math.PI * prog(f, A.headline_land + 6, A.headline_land + 26));
+    const o = mixS(head(f), btn(f), E.inOutCubic(prog(f, 90, BL)), V ? -60 : -70);
     o.sx = o.sy = sw; o.la = prog(f, BL - 10, BL); o.lab = 'Explore'; return o;
   }
   if (f < 276) { const o = btn(f); const sq = spring(sec(f - BL), 22, 0.35); o.sx = 1 + 0.16 * (1 - sq); o.sy = 1 - 0.2 * (1 - sq); return o; }
-  if (f < 352) { const p = E.outExpo(prog(f, 276, 300)); const o = mixS(btn(f), full(), p); o.la = 1 - prog(f, 276, 282); o.lab = 'Explore'; return o; }
+  if (f < 352) { const p = E.outExpo(prog(f, 276, 300)); const o = mixS(btn(f), plate80(f), p); o.la = 1 - prog(f, 276, 282); o.lab = 'Explore'; return o; }
   if (f < 430) {
     const p = E.inExpo(prog(f, 354, 360));
-    const o = f < 360 ? mixS(full(), pill(f), p) : pill(f);
+    const o = f < 360 ? mixS(plate80(f), pill(f), p) : pill(f);
     o.la = prog(f, 357, 362); o.lab = 'Connect Wallet';
     if (f >= 360) { const sq = spring(sec(f - 360), 24, 0.32); o.sx = 1 + 0.22 * (1 - sq); o.sy = 1 - 0.25 * (1 - sq); }
     return o;
@@ -338,8 +348,8 @@ function carrierState(f, c) {
   if (f < 690) { const p = E.inOutCubic(prog(f, 430, 494)); const o = mixS(pill(f), timer(f), p, V ? 140 : 120); if (f > 494) o.la = 1; return o; }
   if (f < 856) { const p = E.inOutQuint(prog(f, 668, 712)); const o = mixS(timer(f), column(f), p); o.la = 1 - prog(f, 668, 676); o.lab = '1d 14h 40m 25s'; o.colAlpha = p; return o; }
   if (f < 960) { const p = E.inOutQuint(prog(f, 852, 886)); const o = mixS(column(f), icon(f), p); o.icon = p > 0.85; o.colAlpha = 1 - p; return o; }
-  if (f < 1060) { const p = E.outExpo(prog(f, 960, 984)); const o = mixS(icon(f), full(), p); o.icon = p < 0.4; return o; }
-  if (f < 1080) { const p = E.inOutQuint(prog(f, 1058, 1080)); const o = mixS(full(), URLS(), p); o.mono = true; o.la = prog(f, 1072, 1080); o.lab = URLS().lab; return o; }
+  if (f < 1060) { const p = E.outExpo(prog(f, 960, 984)); const o = mixS(icon(f), INSET(), p); o.icon = p < 0.4; return o; }
+  if (f < 1080) { const p = E.inOutQuint(prog(f, 1060, 1080)); const o = mixS(INSET(), URLS(), p); o.mono = true; o.la = prog(f, 1072, 1080); o.lab = URLS().lab; return o; }
   const o = URLS(); const sq = spring(sec(f - 1080), 20, 0.4); o.sx = 1 + 0.06 * (1 - sq); o.sy = 1 - 0.1 * (1 - sq); o.la = 1; return o;
 }
 
@@ -361,8 +371,9 @@ window.renderFrame = function (f) {
   const c = camera(f), scroll = sY(f);
   page.style.transform = `translate(${W / 2}px,${H / 2}px) rotate(${c.rot}rad) scale(${c.s}) translate(${-c.cx}px,${-c.cy}px)`;
   const [bx, by] = camVel(f);
-  mbPage.setAttribute('stdDeviation', `${blurAmt(bx) / c.s} ${blurAmt(by) / c.s}`);
-  vis(page, f < 1066 ? 1 : 0);
+  const dof = 10 * E.outCubic(prog(f, 962, 990));
+  mbPage.setAttribute('stdDeviation', `${Math.max(dof, blurAmt(bx)) / c.s} ${Math.max(dof, blurAmt(by)) / c.s}`);
+  page.style.opacity = 1 - 0.55 * E.outCubic(prog(f, 962, 990));
 
   /* header: fixed at top of the viewport; .active when scrollTop > 80 (index.html:773) */
   header.style.top = px(scroll);
@@ -375,7 +386,7 @@ window.renderFrame = function (f) {
   kicker.style.opacity = under(G.kicker.y + 10); btnReal.style.opacity = f >= 360 ? under(G.btn.y + 10) : 0;
   kicker.style.clipPath = `inset(0 ${100 - 100 * E.outCubic(prog(f, 70, 102))}% 0 0)`;
   // portrait: the marble window unfolds from its centre line, then the reveal keeps rising past the top edge (the head)
-  const pf = f, PT = V ? { s0: 208, s1: 246, u0: 214, u1: 250, h0: 236, h1: 272 } : { s0: 150, s1: 190, u0: 156, u1: 196, h0: 184, h1: 236 };
+  const pf = f, PT = V ? { s0: 160, s1: 196, u0: 166, u1: 206, h0: 190, h1: 236 } : { s0: 150, s1: 190, u0: 156, u1: 196, h0: 184, h1: 236 };
   const u1 = E.outQuint(prog(pf, PT.u0, PT.u1)), u2 = E.outCubic(prog(pf, PT.h0, PT.h1));
   const winTop = 189, winMid = 390;
   const top = lerp(winMid, winTop, u1) - winTop * u2, bot = lerp(winMid, 590, u1);
@@ -396,11 +407,12 @@ window.renderFrame = function (f) {
   const hz = hov ? 1 + 0.02 * prog(f, A.hover, A.hover + 18) : 1 + 0.02 * (1 - prog(f, 592, 610)) * (f >= 592 && f < 610 ? 1 : 0);
   cards[0].artIn.style.transform = `scale(${hz})`;
   cards[0].heart.style.color = f >= A.heart_hover && f < 592 ? C.pink : C.grey;
+  cards.forEach((cd, k) => vis(cd.avRing, k === 0 && f >= A.avatar_hover && f < A.hover - 4 ? 1 : 0));
 
   /* Hot Collections: guides draw, tiles fall on 8th notes */
   guides.forEach((g, k) => { const p = E.outCubic(prog(f, 684 + 4 * k, 724 + 4 * k)); g.style.height = px(G.col.h * p); vis(g, f > 680 && f < 886 ? 1 : 0); });
   tiles.forEach((t, k) => {
-    const t0 = A.tile0 + A.tile_step * [3, 1, 0, 2, 4][k] - 13;
+    const t0 = A.tile0 + A.tile_step * [3, 1, 0, 2, 4][k] - 8;
     const sp = spring(sec(f - t0), 18, 0.48);
     t.style.transform = `translateY(${(1 - sp) * -70}px) scale(${1 + (1 - Math.min(1, sp)) * 0.06})`;
     vis(t, f >= t0 ? clamp(prog(f, t0, t0 + 5)) : 0);
@@ -454,12 +466,12 @@ window.renderFrame = function (f) {
     const crossed = scroll > 80;
     pNum.style.transform = `scale(${0.92 + 0.08 * E.outCubic(prog(f, 286, 310)) + 0.03 * Math.sin(Math.PI * prog(f, 344, 354)) + (crossed ? 0.06 * (1 - spring(sec(f - 354), 26, 0.35)) : 0)})`;
     pNum.style.opacity = E.outCubic(prog(f, 286, 296));
-    pLineBin.style.color = crossed ? '#fff' : C.grey;
+    pLineBin.style.color = '#fff'; pLineBin.style.fontWeight = crossed ? 700 : 400;
     const uw = pLineBin.offsetWidth ? 0 : 0;
     const bw = (V ? 600 : 760) * E.outExpo(prog(f, 354, 360));
     pUnder.style.left = px(W / 2 - bw / 2); pUnder.style.width = px(bw);
     plate.style.opacity = 1 - E.inQuad(prog(f, 355, 360));
-    plate.style.transform = `scale(${1 + 0.05 * prog(f, 284, 360)}) translateY(${-10 * prog(f, 284, 360)}px)`;
+    plate.style.transform = `translateY(${hdrBottom(f) / 2}px) scale(${1 + 0.05 * prog(f, 284, 360)}) translateY(${-10 * prog(f, 284, 360)}px)`;
   }
 
   // grid label
@@ -477,15 +489,16 @@ window.renderFrame = function (f) {
   const tyOn = f >= 966 && f < 1066;
   vis(typeL, tyOn ? 1 : 0);
   if (tyOn) {
-    const out = E.inCubic(prog(f, 1046, 1060));
+    const out = E.inCubic(prog(f, 1048, 1060));
     ty1.style.transform = `translateY(${(1 - E.outQuint(prog(f, A.type_a - 6, A.type_a + 18))) * 110 - out * 110}%)`;
     ty2.style.transform = `translateY(${(1 - E.outQuint(prog(f, A.type_b - 12, A.type_b + 12))) * 110 - out * 110}%)`;
-    tabs.forEach((t, i) => { const t0 = i === 0 ? A.type_a + 6 : A.type_b + 4 + 7.5 * (i - 1); const o2 = E.inCubic(prog(f, 1042 + i, 1056 + i));
-      t.style.transform = `translateX(${(1 - E.outQuint(prog(f, t0, t0 + 18))) * -105 + o2 * 105}%)`; });
-    typeL.style.transform = `scale(${1 + 0.06 * E.outCubic(prog(f, 966, 1066))}) translateY(${-14 * prog(f, 966, 1066)}px)`;
+    tabs.forEach((t, i) => { const t0 = i === 0 ? A.type_a + 6 : A.type_b + 4 + 4 * (i - 1); const o2 = E.inCubic(prog(f, 1044 + i, 1054 + i));
+      t.style.transform = `translateX(${(1 - E.outQuint(prog(f, t0, t0 + 14))) * -105 + o2 * 105}%)`; });
+    typeL.style.transform = `scale(${1 + 0.03 * prog(f, 966, 1066)})`;
   }
 
   // end
+  if (f >= 1066) vis(page, 0);
   vis(endL, f >= 1058 ? 1 : 0); vis(endBack, f >= 1058 ? 1 : 0);
   if (f >= 1058) {
     endBg.style.transform = `scale(${1.06 + (V ? 0.2 : 0.12) * prog(f, 1058, 1200)}) translate(${-30 * prog(f, 1058, 1200)}px, ${-16 * prog(f, 1058, 1200)}px)`;
@@ -497,10 +510,15 @@ window.renderFrame = function (f) {
     endLogo.style.opacity = E.outCubic(prog(f, 1084, 1100));
     endLogo.style.transform = `translateY(${(1 - E.outCubic(prog(f, 1084, 1104))) * 16}px)`;
     endCred.style.opacity = E.outCubic(prog(f, 1100, 1116));
+    endCta.style.top = px(EN.urlY - (V ? 62 : 58)); endCta.style.opacity = E.outCubic(prog(f, 1086, 1100)); endCta.style.transform = `translateY(${(1 - E.outCubic(prog(f, 1086, 1104))) * 14}px)`;
     endL.style.transform = `scale(${1 + 0.05 * prog(f, 1076, 1200)}) translateY(${-8 * prog(f, 1076, 1200)}px)`;
     endL.style.transformOrigin = '50% 50%';
   }
 
+  // .addClass("active") lands on the header: a line runs along its bottom edge as it switches
+  if (f >= 354 && f < 380) { const hb = hdrBottom(f); const p = E.outExpo(prog(f, 354, 366)); sweep.style.top = px(hb - 2); sweep.style.width = px(W * p); vis(sweep, 1 - prog(f, 368, 380)); } else vis(sweep, 0);
+  // nothing exists above a browser viewport: mask the band over the fixed header while we scroll
+  if (f >= 356 && f < 476) { vpMask.style.height = px(Math.max(0, proj(0, scroll, c)[1])); vis(vpMask, prog(f, 356, 364) * (1 - prog(f, 458, 476))); } else vis(vpMask, 0);
   // carrier
   const st = carrierState(f, c);
   carrier.style.left = px(st.cx - st.w / 2); carrier.style.top = px(st.cy - st.h / 2);
@@ -523,12 +541,13 @@ window.renderFrame = function (f) {
 
   // cursor: hover on card art, glide to the heart; then hover the guide card
   let cu = null;
-  if (f >= 500 && f < 594) {
+  if (f >= 496 && f < 594) {
     const cc = c;
-    const p1 = proj(G.card.xs[0] + 200, G.card.y + 210, cc), p2 = proj(G.card.xs[0] + 281, G.card.y + 393, cc);
-    const enter = E.outCubic(prog(f, 500, A.hover)), go = E.inOutCubic(prog(f, 542, A.heart_hover));
-    const sx = lerp(W + 40, p1[0], enter), sy2 = lerp(p1[1] + 160, p1[1], enter);
-    cu = [lerp(sx, p2[0], go), lerp(sy2, p2[1], go) - Math.sin(Math.PI * go) * 40];
+    const p0 = proj(G.card.xs[0] + 48, G.card.y + 50, cc), p1 = proj(G.card.xs[0] + 200, G.card.y + 210, cc), p2 = proj(G.card.xs[0] + 281, G.card.y + 393, cc);
+    const enter = E.outCubic(prog(f, 496, A.avatar_hover)), g1 = E.inOutCubic(prog(f, A.avatar_hover + 10, A.hover)), go = E.inOutCubic(prog(f, A.hover + 10, A.heart_hover));
+    let x = lerp(W * 0.8, p0[0], enter), y = lerp(H + 60, p0[1], enter);
+    x = lerp(x, p1[0], g1); y = lerp(y, p1[1], g1) - Math.sin(Math.PI * g1) * 30;
+    cu = [lerp(x, p2[0], go), lerp(y, p2[1], go) - Math.sin(Math.PI * go) * 40];
     const leave = E.inCubic(prog(f, 578, 594)); cu[0] += leave * 500; cu[1] += leave * 300;
   } else if (f >= 862 && f < 960) {
     const p1 = proj(G.guide.xs[0] + 300, G.guide.y + 170, c);

@@ -289,9 +289,9 @@ timing = {
     ],
     'actions': {
         'headline_land': 60, 'editor_out': 120, 'button_land': 150, 'plate_open': 276,
-        'header_snap': 360, 'dive': 480, 'hover': 525, 'heart_hover': 570, 'pullback': 600,
+        'header_snap': 360, 'dive': 480, 'avatar_hover': 516, 'hover': 540, 'heart_hover': 570, 'pullback': 600,
         'collections_in': 690, 'tile0': 720, 'tile_step': 15, 'guide_in': 870, 'guide_hover': 900,
-        'glyph_swing': 900, 'fly_to_camera': 960, 'type_a': 975, 'type_b': 1020, 'end_hit': 1080,
+        'glyph_swing': 900, 'fly_to_camera': 960, 'type_a': 975, 'type_b': 996, 'end_hit': 1080,
     },
 }
 with open(os.path.join(ROOT, 'timing.json'), 'w') as f:

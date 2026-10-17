@@ -38,3 +38,20 @@ Measured: 1920×1080, 60 fps, 1200 frames, 20.000 s. Frozen total **3.07 s** (fa
   8. Dead holds. Fix: the drop to the button starts 20 frames earlier; pushes and floats added.
   9. Soft headline landing. Fix: inOutCubic approach plus a 4.5 % landing bump that settles by spring.
   10. Sync: tiles 3–4 frames late and camera whooshes +2–5 frames. Fix: tile spring offset −13 f, and each camera move's midpoint re-centred on its whoosh frame.
+
+## Round 2: `out/r2_*.mp4`
+Measured, 16:9: frozen 0.92 s, longest still 0.20 s, no still run over 0.5 s, −13.8 LUFS, TP −1.2. 9:16: frozen 1.63 s, longest still 0.33 s.
+- Fact check (r2): **pass**. Non-blocking notes applied: F21 range widened to 130–138; F5, F6 and F8 given line numbers; F7 notes the desktop media query; file tabs retimed so all seven are fully on screen.
+- Sound-off (r2): landscape **3.5/5**, vertical **3/5**. The counter was still cryptic, there was no explicit CTA, and the 9:16 opening code was small. Fixes: the counter plate now stops under the live header, so the header visibly switches when the number passes 80, with a purple line running along its edge on `addClass`; "Read the source" added above the URL (F25); 9:16 code size retuned to fit inside the right UI margin.
+- Frame critic + director (r2): **one more pass**. Fixes:
+  - Dead scroll: scroll is 1.5 s shorter (362–452, inOutCubic); band above the fixed header masked; 9:16 zooms toward the card during the scroll.
+  - Headline clipped at the left: hero push limited to s ≤ 1.43, so the headline keeps ≥ 80 px margin.
+  - The hover had no visible result: the cursor now runs through three real CSS hovers (avatar border, `style.css:71-73`; art scale 1.02; heart #ec7498). No invented lift.
+  - Tile sync: offset set from the spring's first crossing (8 f), so each tile lands on its tick; shot widened to s 1.45 so all five tiles are visible.
+  - Type beat repeated the counter layout: it is now an inset card over a depth-blurred, dimmed page; "6 CSS files" is readable for ~0.75 s, and the tabs exit before the card shrinks.
+  - Whoosh at f120 had no move: the drop to the button now runs 90–150, centred on it.
+  - Dead holds: collections and guide pushes doubled; end drifts to the last frame.
+  - Weak frame one: 16:9 code 44 → 54 px.
+  - Contrast: the `addClass` line is white throughout (large-text 4.4:1); crossing is marked by weight and underline.
+  - 9:16: hero recomposed (headline centred, pan to the portrait at 2.5–3.4 s); macro card moved inside the UI-safe area; scroll zooms 1.5 → 2.1 into the card.
+  - Declined: logo in the 9:16 header-snap crop. The crop has to hold the Connect Wallet pill, because the carrier lands there; the logo returns on the end card.
