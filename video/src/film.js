@@ -65,7 +65,7 @@ const iconRect = { x: G.guide.xs[0] + 50, y: G.guide.y + 50, w: 50, h: 50 };
 /* ---------- scroll (window.scrollTop of the rebuilt page) ---------- */
 function sY(f) {
   if (f < 284) return 0;
-  if (f < 344) return 80 * E.outCubic(prog(f, 284, 344));             // arrives at 80 and holds
+  if (f < 330) return 80 * E.outCubic(prog(f, 284, 330));             // arrives at 80 and holds
   if (f < 354) return 80;
   if (f < 360) return 81;                                              // crosses: > 80 → .header.active
   if (f < 456) return lerp(81, 1100, E.inOutCubic(prog(f, 362, 452)));
@@ -467,7 +467,7 @@ window.renderFrame = function (f) {
     const n = Math.floor(scroll);
     pNum.innerHTML = `<span style="position:absolute;left:0;right:0;top:-.02em;font-size:.12em;letter-spacing:0;font-family:'JB Mono';font-weight:600;line-height:1">scrollTop()</span>${n}<span style="font-size:.3em;letter-spacing:0;color:#ffffff;margin-left:.08em">px</span>`;
     const crossed = scroll > 80;
-    pNum.style.transform = `scale(${0.92 + 0.08 * E.outCubic(prog(f, 286, 310)) + 0.03 * Math.sin(Math.PI * prog(f, 344, 354)) + (crossed ? 0.06 * (1 - spring(sec(f - 354), 26, 0.35)) : 0)})`;
+    pNum.style.transform = `scale(${0.92 + 0.08 * E.outCubic(prog(f, 286, 310)) + 0.03 * Math.sin(Math.PI * prog(f, 330, 354)) + (crossed ? 0.06 * (1 - spring(sec(f - 354), 26, 0.35)) : 0)})`;
     pNum.style.opacity = E.outCubic(prog(f, 286, 296));
     pLineBin.style.color = '#fff'; pLineBin.style.fontWeight = 700;
     const uw = pLineBin.offsetWidth ? 0 : 0;
