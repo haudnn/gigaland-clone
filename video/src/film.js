@@ -231,7 +231,7 @@ const lineTop = i => H / 2 + (i - 4) * ED.lh - ED.lh / 2;
 const editor = el(stage, 'layer');
 const edBg = el(editor, 'layer', { background: 'rgba(33,36,40,0.9)' });
 const edBody = el(editor, 'layer', { transformOrigin: '50% 50%' });
-const edTab = el(edBody, 'mono', { position: 'absolute', left: px(ED.x), top: px(lineTop(0) - (V ? 110 : 76)), fontSize: px(V ? 24 : 24), color: C.grey, letterSpacing: '.5px' }, '<span style="color:#fff">gigaland-clone</span> / index.html');
+const edTab = el(edBody, 'mono', { position: 'absolute', left: px(ED.x), top: px(lineTop(0) - (V ? 110 : 76)), fontSize: px(V ? 30 : 34), color: C.grey, letterSpacing: '.5px' }, '<span style="color:#fff;font-weight:600">gigaland-clone</span> / index.html');
 el(edBody, '', { position: 'absolute', left: px(ED.x), top: px(lineTop(0) - (V ? 110 : 76) + 44), width: px(V ? 400 : 420), height: '3px', background: C.purple });
 function hl(code) { // minimal HTML syntax colouring from the palette
   return code.replace(/(&lt;\/?)([a-z]+)/g, '$1<span style="color:#fff">$2</span>')
@@ -250,7 +250,7 @@ const flySans = el(stage, '', { position: 'absolute', left: 0, top: 0, fontSize:
 
 // 2) the 80 plate
 const plate = el(stage, 'layer');
-const P80 = V ? { code: 30, num: 360, gap: 300 } : { code: 36, num: 340, gap: 250 };
+const P80 = V ? { code: 30, num: 360, gap: 300 } : { code: 36, num: 340, gap: 300 };
 const pLineA = el(plate, 'mask', { left: 0, width: '100%', top: px(H / 2 - P80.gap), height: px(P80.code * 1.6), textAlign: 'center' });
 const pLineAin = el(pLineA, 'mono', { fontSize: px(P80.code), lineHeight: px(P80.code * 1.6), color: '#fff' }, 'if($(window).scrollTop() &gt; 80) {');
 const pNum = el(plate, '', { position: 'absolute', left: 0, width: '100%', top: px(H / 2 - P80.num * 0.62), textAlign: 'center', fontSize: px(P80.num), fontWeight: 800, lineHeight: px(P80.num * 1.2), letterSpacing: '-8px', fontVariantNumeric: 'tabular-nums' }, '0');
@@ -265,11 +265,13 @@ const gLabel = el(stage, 'mono', { position: 'absolute', left: 0, top: 0, paddin
 // 4) full-frame type
 const typeL = el(stage, 'layer');
 // split layout: big counts on one side, the real file names (assets/css + index.html) as tabs on the other
-const TY = V ? { fs: 132, x: 110, y1: 330, y2: 760, lx: 110, ly1: 520, ly2: 950, row: 64, lfs: 36, lw: 560 }
+const TY = V ? { fs: 132, x: 110, y1: 410, y2: 740, lx: 110, ly1: 600, ly2: 980, row: 64, lfs: 36, lw: 560 }
              : { fs: 150, x: 130, y1: 250, y2: 560, lx: 1130, ly1: 280, ly2: 520, row: 58, lfs: 32, lw: 470 };
 function typeLine(txt, y) { const m = el(typeL, 'mask', { left: px(TY.x - 10), width: px(V ? 960 : 1000), top: px(y), height: px(TY.fs * 1.18) }); return el(m, '', { fontSize: px(TY.fs), fontWeight: 800, lineHeight: px(TY.fs * 1.18), letterSpacing: '-4px', whiteSpace: 'nowrap', paddingLeft: '10px' }, txt); }
-const ty1 = typeLine('1 HTML file', TY.y1), ty2 = typeLine('6 CSS files', TY.y2);
+const ty1 = typeLine('1 page', TY.y1), ty2 = typeLine('6 stylesheets', TY.y2);
 const FILES = [['index.html', TY.ly1], ...['base.css', 'footer.css', 'grid.css', 'header.css', 'responsive.css', 'style.css'].map((n, i) => [n, TY.ly2 + i * TY.row])];
+const cssHead = el(typeL, 'mask', { left: px(TY.lx), top: px(TY.ly2 - 46), width: px(TY.lw), height: '40px' });
+const cssHeadIn = el(cssHead, 'mono', { fontSize: px(TY.lfs - 4), lineHeight: '40px', color: '#fff', fontWeight: 600 }, 'assets/css/');
 const tabs = FILES.map(([n, y]) => { const m = el(typeL, 'mask', { left: px(TY.lx), top: px(y), width: px(TY.lw), height: px(TY.row - 10) }); return el(m, 'mono', { height: '100%', background: C.deep, borderRadius: '8px', fontSize: px(TY.lfs), lineHeight: px(TY.row - 10), paddingLeft: '22px', color: '#fff' }, n); });
 
 // 5) end
@@ -403,8 +405,8 @@ window.renderFrame = function (f) {
     cards[k].c.style.transform = `translateX(${(1 - p) * (G.card.xs[0] - G.card.xs[k])}px) rotate(${(1 - p) * -2 * k}deg)`;
     vis(cards[k].c, f > 584 ? 1 : 0);
   }
-  const hov = f >= A.hover && f < 592;
-  const hz = hov ? 1 + 0.02 * prog(f, A.hover, A.hover + 18) : 1 + 0.02 * (1 - prog(f, 592, 610)) * (f >= 592 && f < 610 ? 1 : 0);
+  const hov = f >= A.avatar_hover && f < 592;
+  const hz = hov ? 1 + 0.02 * prog(f, A.avatar_hover, A.avatar_hover + 18) : 1 + 0.02 * (1 - prog(f, 592, 610)) * (f >= 592 && f < 610 ? 1 : 0);
   cards[0].artIn.style.transform = `scale(${hz})`;
   cards[0].heart.style.color = f >= A.heart_hover && f < 592 ? C.pink : C.grey;
   cards.forEach((cd, k) => vis(cd.avRing, k === 0 && f >= A.avatar_hover && f < A.hover - 4 ? 1 : 0));
@@ -462,7 +464,7 @@ window.renderFrame = function (f) {
     pLineAin.style.transform = `translateY(${(1 - E.outQuint(prog(f, 284, 304))) * 110}%)`;
     pLineBin.style.transform = `translateY(${(1 - E.outQuint(prog(f, 292, 312))) * 110}%)`;
     const n = Math.floor(scroll);
-    pNum.innerHTML = `${n}<span style="font-size:.3em;letter-spacing:0;color:#ffffff;margin-left:.08em">px</span>`;
+    pNum.innerHTML = `<span style="position:absolute;left:0;right:0;top:-.02em;font-size:.12em;letter-spacing:0;font-family:'JB Mono';font-weight:600;line-height:1">scrollTop()</span>${n}<span style="font-size:.3em;letter-spacing:0;color:#ffffff;margin-left:.08em">px</span>`;
     const crossed = scroll > 80;
     pNum.style.transform = `scale(${0.92 + 0.08 * E.outCubic(prog(f, 286, 310)) + 0.03 * Math.sin(Math.PI * prog(f, 344, 354)) + (crossed ? 0.06 * (1 - spring(sec(f - 354), 26, 0.35)) : 0)})`;
     pNum.style.opacity = E.outCubic(prog(f, 286, 296));
@@ -492,6 +494,7 @@ window.renderFrame = function (f) {
     const out = E.inCubic(prog(f, 1048, 1060));
     ty1.style.transform = `translateY(${(1 - E.outQuint(prog(f, A.type_a - 6, A.type_a + 18))) * 110 - out * 110}%)`;
     ty2.style.transform = `translateY(${(1 - E.outQuint(prog(f, A.type_b - 12, A.type_b + 12))) * 110 - out * 110}%)`;
+    cssHeadIn.style.transform = `translateY(${(1 - E.outQuint(prog(f, A.type_b, A.type_b + 14))) * 110 - E.inCubic(prog(f, 1044, 1054)) * 110}%)`;
     tabs.forEach((t, i) => { const t0 = i === 0 ? A.type_a + 6 : A.type_b + 4 + 4 * (i - 1); const o2 = E.inCubic(prog(f, 1044 + i, 1054 + i));
       t.style.transform = `translateX(${(1 - E.outQuint(prog(f, t0, t0 + 14))) * -105 + o2 * 105}%)`; });
     typeL.style.transform = `scale(${1 + 0.03 * prog(f, 966, 1066)})`;

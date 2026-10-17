@@ -60,14 +60,14 @@
     },
     {
       "id": "F9",
-      "claim": "1 HTML file",
+      "claim": "The site is 1 page: index.html (the only other .html files are vendor icon-font demo pages under assets/font/)",
       "kind": "claim",
-      "source": "repo tree: index.html is the only .html outside font demo folders",
+      "source": "repo tree",
       "sentence": "index.html"
     },
     {
       "id": "F10",
-      "claim": "6 CSS files",
+      "claim": "6 stylesheets in assets/css/ (shown with the 'assets/css/' header; vendor icon-font CSS under assets/font/ is not counted)",
       "kind": "claim",
       "source": "assets/css/: base, footer, grid, header, responsive, style",
       "sentence": "base.css footer.css grid.css header.css responsive.css style.css"
@@ -144,7 +144,7 @@
     },
     {
       "id": "F21",
-      "claim": "Code lines shown in the editor are verbatim from index.html:132-136 and grid.css:330-333",
+      "claim": "Code shown in the editor is index.html:130-138 and grid.css:330-333, with indentation normalised (tokens verbatim)",
       "kind": "code",
       "source": "index.html:130-138, assets/css/grid.css:330-333",
       "sentence": "<span class=\"introduce__title-big\"> Create, sell and collect digital items. </span>"
